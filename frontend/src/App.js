@@ -15,7 +15,6 @@ import UserProfile from "./components/UserProfile";
 import PersonalChat from "./components/PersonalChat";
 import GroupChat from "./components/GroupChat";
 import BlogPost from "./components/BlogPost";
-import Stores from "./components/Stores";
 import Landing from "./components/Landing";
 
 function App() {
@@ -26,7 +25,7 @@ function App() {
         <VNavbar />
         <Routes>
           <Route path="/" element={<Landing />}></Route>
-          <Route path="/stores" element={<Stores />}></Route>
+
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/user/:userid" element={<UserProfile />}></Route>
