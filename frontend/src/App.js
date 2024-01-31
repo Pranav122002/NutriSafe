@@ -23,7 +23,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Navbar />
+        <VNavbar />
         <Navbar />
         <Routes>
           <Route path="/" element={<Landing />}></Route>

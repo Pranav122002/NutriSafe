@@ -65,7 +65,7 @@ const UserProfile = () => {
   };
 
   return (
-    <div>
+    <div className="mt-40 userProfileContainer">
       <h2>User Profile</h2>
       <div>
         <h3>Allergies:</h3>
@@ -82,12 +82,20 @@ const UserProfile = () => {
         </button>
         {showForm && (
           <div>
-            <input
-              type="text"
-              value={newAllergy}
-              onChange={(e) => setNewAllergy(e.target.value)}
-              placeholder="Enter allergy"
-            />
+            <select value={newAllergy} onChange={(e) => setNewAllergy(e.target.value)}>
+              <option value="">Select Allergy</option>
+              <option value="Peanuts">Peanuts</option>
+              <option value="Eggs">Eggs</option>
+              <option value="Shellfish">Shellfish</option>
+              <option value="Gluten">Gluten</option>
+              <option value="Fish">Fish</option>
+              <option value="Eggs">Eggs</option>
+              <option value="Soy">Soy</option>
+              <option value="Sesame">Sesame</option>
+              <option value="Meat">Meat</option>
+              <option value="Treenuts">Treenuts</option>
+
+            </select>
             <button onClick={handleSaveAllergy}>Save Allergy</button>
           </div>
         )}
