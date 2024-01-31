@@ -5,6 +5,10 @@ const blogpostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+  
+  },
   content: {
     type: String,
     required: true,
