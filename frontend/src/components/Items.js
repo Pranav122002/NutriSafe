@@ -7,10 +7,13 @@ const Items = () => {
   const notifyA = (msg) => toast.error(msg);
   const notifyB = (msg) => toast.success(msg);
 
-  const [storeitem, setStoreItem] = useState([]);
+  const [storeItems, setStoreItems] = useState([]);
+  const [selectedStore, setSelectedStore] = useState(null);
 
   useEffect(() => {
     fetchStoreItems();
+    console.log("storeitems = ",storeItems);
+    
   }, []);
 
   const fetchStoreItems = async () => {
@@ -24,9 +27,9 @@ const Items = () => {
       const data = await response.json();
 
       if (Array.isArray(data)) {
-        setStoreItem(data);
+        setStoreItems(data);
       } else if (data && typeof data === "object") {
-        setStoreItem(Object.values(data));
+        setStoreItems(Object.values(data));
       } else {
         throw new Error("Invalid data format received from the server");
       }
@@ -38,31 +41,43 @@ const Items = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(storeitem);
-  }, [storeitem]); // Log the state whenever storeitem changes
+  const handleStoreClick = (storeId) => {
+    const selectedStoreData = storeItems.find((store) => store._id === storeId);
+    setSelectedStore(selectedStoreData);
+  };
 
   return (
     <>
       <div>
         <h2>View Item Details</h2>
         <ul>
-          {storeitem.map((item) => (
-            <li key={item._id}>
-              <p>Name: {item.name}</p>
-              <p>Location: {item.location}</p>
-              {/* {item.foodItems.map((fitem) => (
-                <li key={fitem._id}>
-                  <p>Name: {fitem.name}</p>
-                  <p>Location: {fitem.location}</p>
-                  <p>Location: {fitem.containsAllergens}</p>
-                  <p>Location: {fitem.price}</p>
-                </li>
-              ))} */}
+          {storeItems.map((store) => (
+            <li key={store._id}>
+              <p>Name: {store.name}</p>
+              <p>Location: {store.location}</p>
+              <button onClick={() => handleStoreClick(store._id)}>
+                Show Food Items
+              </button>
             </li>
           ))}
         </ul>
       </div>
+
+      {selectedStore && (
+        <div>
+          <h2>Food Items for {selectedStore.name}</h2>
+          <ul>
+            {selectedStore.foodItems.map((foodItem) => (
+              <li key={foodItem._id}>
+                <p>Name: {foodItem.name}</p>
+                <p>Location: {foodItem.location.floor} - {foodItem.location.department}</p>
+                <p>Contains Allergens: {foodItem.containsAllergens.toString()}</p>
+                <p>Price: {foodItem.price}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 };
