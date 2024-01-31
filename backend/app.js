@@ -21,6 +21,7 @@ require("./models/personal_message");
 require("./models/admin")
 require("./models/blogpost")
 
+
 app.use(require("./routes/user"));
 app.use(require("./routes/auth"));
 app.use(require("./routes/message"));
