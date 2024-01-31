@@ -55,7 +55,8 @@ export default function SignUp() {
 
   return (
     <>
-      <div>
+    <div className="form-container">
+      <div className="signin-form">
         <div>
           <input
             type="email"
@@ -103,12 +104,14 @@ export default function SignUp() {
         >
           Sign Up
         </button>
-      </div>
-      <div>
+        <div>
         Have an account?
         <Link to="/signin">
           <span> Sign in</span>
         </Link>
+      </div>
+      </div>
+
       </div>
     </>
   );

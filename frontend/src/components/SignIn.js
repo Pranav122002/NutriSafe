@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
 export default function SignIn() {
@@ -47,51 +48,72 @@ export default function SignIn() {
 
   return (
     <>
-      <div>
-        <div>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </div>
+      <div className="background-container">
+        <div className="blurred-image">
+        {/* <img src="./assets/images/a.jpg" alt="SignInImage" /> */}
+</div>
+        
+        <div className="form-container">
+          {/* Your content here */}
+          {/* <h1>Welcome to My Website</h1>
+        <p>This is a sample text.</p> */}
+          <div className="signin-form">
+            <div>
+            <h2>Sign in</h2>
 
-        <div>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
 
-        <div>
-          <button
-            type="submit"
-            onClick={() => {
-              postData();
-            }}
-          >
-            Sign in
-          </button>
-        </div>
+            <div>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
 
-        <div>
-          Don't have an account?
-          <Link to="/signup">
-            <span> Sign Up</span>
-          </Link>
+            <div>
+              <button
+                type="submit"
+                onClick={() => {
+                  postData();
+                }}
+              >
+                Sign in
+              </button>
+            </div>
+
+            <div>
+              Don't have an account?
+              <Link to="/signup">
+                <span> Sign Up</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* <div className="row g-0">
+          <div className="col-md-8 form-banner">
+            <img src="./assets/images/a.jpg" alt="SignInImage" />
+          </div> */}
+      {/* <div className="col-md-4 form-container"> */}
+      {/* </div> */}
+      {/* </div> */}
     </>
   );
 }
