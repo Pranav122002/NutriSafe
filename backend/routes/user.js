@@ -8,7 +8,6 @@ const storeModel = require("../models/store");
 const userModel = require("../models/user");
 const userItem = require("../models/useritem");
 const axios = require("axios");
-const auth_checker = require("../middlewares/auth")
 
 
 router.get("/api/all-users-except/:id",auth_checker, async (req, res, next) => {
