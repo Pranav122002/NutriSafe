@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Cart",
   },
+  allergies : [
+    {type : String}
+  ]
 });
 
 userSchema.pre("save", async function (next) {

@@ -55,8 +55,16 @@ export default function SignUp() {
 
   return (
     <>
-      <div>
+        <div className="background-container">
+        <div className="blurred-image">
+  </div>
+        
+
+    <div className="form-container">
+      <div className="signin-form">
         <div>
+        <h2>Sign Up</h2>
+
           <input
             type="email"
             name="email"
@@ -103,12 +111,14 @@ export default function SignUp() {
         >
           Sign Up
         </button>
-      </div>
-      <div>
+        <div>
         Have an account?
         <Link to="/signin">
           <span> Sign in</span>
         </Link>
+      </div>
+      </div>
+</div>
       </div>
     </>
   );

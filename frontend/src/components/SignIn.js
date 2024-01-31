@@ -47,51 +47,68 @@ export default function SignIn() {
 
   return (
     <>
-      <div>
-        <div>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </div>
+      <div className="background-container">
+        <div className="blurred-image">
+</div>
+        
+        <div className="form-container">
+          <div className="signin-form">
+            <div>
+            <h2>Sign in</h2>
 
-        <div>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
 
-        <div>
-          <button
-            type="submit"
-            onClick={() => {
-              postData();
-            }}
-          >
-            Sign in
-          </button>
-        </div>
+            <div>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
 
-        <div>
-          Don't have an account?
-          <Link to="/signup">
-            <span> Sign Up</span>
-          </Link>
+            <div>
+              <button
+                type="submit"
+                onClick={() => {
+                  postData();
+                }}
+              >
+                Sign in
+              </button>
+            </div>
+
+            <div>
+              Don't have an account?
+              <Link to="/signup">
+                <span> Sign Up</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* <div className="row g-0">
+          <div className="col-md-8 form-banner">
+            <img src="./assets/images/a.jpg" alt="SignInImage" />
+          </div> */}
+      {/* <div className="col-md-4 form-container"> */}
+      {/* </div> */}
+      {/* </div> */}
     </>
   );
 }
