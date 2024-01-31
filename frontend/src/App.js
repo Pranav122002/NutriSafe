@@ -16,6 +16,7 @@ import PersonalChat from "./components/PersonalChat";
 import GroupChat from "./components/GroupChat";
 import BlogPost from "./components/BlogPost";
 import Landing from "./components/Landing";
+import Download from "./components/Download";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
           <Route path="/group-chat" element={<GroupChat />}></Route> */}
           <Route path="/blogposts" element={<BlogPost />}></Route>
           <Route path="/stores" element={<Stores />}></Route>
+          <Route path="/download" element={<Download />}></Route>
         </Routes>
         <ToastContainer />
       </div>

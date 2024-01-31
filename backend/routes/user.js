@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const USER = require("../models/user")
+const auth_checker = require("../middlewares/auth");
 
 const stores = require("../models/store");
 const storeModel = require("../models/store");
