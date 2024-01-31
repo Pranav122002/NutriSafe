@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = "http://localhost:5000/api"
 
 const BlogPost = () => {
   const [blogPosts, setBlogPosts] = useState([]);

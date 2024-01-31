@@ -2,13 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-export default function Navbar({ login }) {
+export default function Navbar() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [onHome, setOnHome] = useState(false);
-  const [onChat, setOnChat] = useState(false);
-  const [onProfile, setOnProfile] = useState(false);
-  const [user, setUser] = useState("");
+  // const location = useLocation();
+  // const [onHome, setOnHome] = useState(false);
+  // const [onChat, setOnChat] = useState(false);
+  // const [onProfile, setOnProfile] = useState(false);
+  // const [user, setUser] = useState("");
 
   // useEffect(() => {
   //   const token = localStorage.getItem("jwt");
@@ -17,12 +17,12 @@ export default function Navbar({ login }) {
   //   }
   // }, []);
 
-  useEffect(() => {
-    setOnHome(location.pathname === "/home");
-    setOnHome(location.pathname === "/blogposts");
-    setOnChat(location.pathname === "/chat");
-    setOnProfile(location.pathname === "/profile");
-  }, [location]);
+  // useEffect(() => {
+  //   setOnHome(location.pathname === "/home");
+  //   setOnHome(location.pathname === "/blogposts");
+  //   setOnChat(location.pathname === "/chat");
+  //   setOnProfile(location.pathname === "/profile");
+  // }, [location]);
 
   const Navigation = () => {
     const token = localStorage.getItem("jwt");
@@ -30,35 +30,25 @@ export default function Navbar({ login }) {
     if (token) {
       return [
         <>
-          <NavLink to="/home">
-            <li>
-              {/* <span className="spanicon">
-                {!onHome ? homeOutline : homeFill}
-              </span> */}
-              Home
-            </li>
-          </NavLink>
+          <div>
 
-          <NavLink to="/chat">
-            <li>Chat</li>
-          </NavLink>
+            <div className="sma w-screen bg-white h-16 shadow-md flex justify-between">
+              <div className="sma w-screen flex justify-between">
 
-          <NavLink to="/blogposts">
-            <li>BlogPosts</li>
-          </NavLink>
+                <img className="logo mt-2 h-12 ml-5" src="./logo.png" alt="" />
+                <div className="mini flex">
 
-          <NavLink to="/profile">
-            <li>Profile</li>
-          </NavLink>
 
-          <NavLink
-            to="/signin"
-            onClick={() => {
-              localStorage.clear();
-            }}
-          >
-            <li>Log Out</li>
-          </NavLink>
+                  <div><Link to="/profile">
+                    <img className="img h-10 m-3" src="./profile.png" alt="" />
+                  </Link>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
         </>,
       ];
     } else {

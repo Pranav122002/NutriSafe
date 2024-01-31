@@ -8,7 +8,8 @@ const socket = require("socket.io");
 
 require("dotenv").config();
 const PORT = process.env.PORT || 5000;
-const MONGOURI = process.env.MONGOURI;
+MONGOURI = "mongodb+srv://test:HGfqwVB2DpJEALSC@cluster0.gr1f531.mongodb.net/"
+JWT_SECRET = "test123"
 
 app.use(cors());
 app.use(express.json());
@@ -40,43 +41,43 @@ const server = app.listen(PORT, () => {
   console.log("Server is running on PORT" + " " + PORT + " ...");
 });
 
-const io = socket(server, {
-  cors: {
-    origin: "http://localhost:3000",
-    credentials: true,
-  },
-});
+// const io = socket(server, {
+//   cors: {
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//   },
+// });
 
-const onlineUsers = new Map();
+// const onlineUsers = new Map();
 
-io.on("connection", (socket) => {
-  socket.on("message", (message) => {
-    io.emit("message", message);
-  });
+// io.on("connection", (socket) => {
+//   socket.on("message", (message) => {
+//     io.emit("message", message);
+//   });
 
-  socket.on("add-user", (userId) => {
-    onlineUsers.set(userId, socket.id);
-  });
+//   socket.on("add-user", (userId) => {
+//     onlineUsers.set(userId, socket.id);
+//   });
 
-  socket.on("personal-message", (message) => {
-    const { sender_id, receiver_id } = message;
+//   socket.on("personal-message", (message) => {
+//     const { sender_id, receiver_id } = message;
 
-    const senderSocketId = onlineUsers.get(sender_id);
-    if (senderSocketId) {
-      io.to(senderSocketId).emit("personal-message", message);
-    }
+//     const senderSocketId = onlineUsers.get(sender_id);
+//     if (senderSocketId) {
+//       io.to(senderSocketId).emit("personal-message", message);
+//     }
 
-    const recipientSocketId = onlineUsers.get(receiver_id);
-    if (recipientSocketId) {
-      io.to(recipientSocketId).emit("personal-message", message);
-    }
-  });
+//     const recipientSocketId = onlineUsers.get(receiver_id);
+//     if (recipientSocketId) {
+//       io.to(recipientSocketId).emit("personal-message", message);
+//     }
+//   });
 
-  socket.on("disconnect", () => {
-    onlineUsers.forEach((socketId, userId) => {
-      if (socketId === socket.id) {
-        onlineUsers.delete(userId);
-      }
-    });
-  });
-});
+//   socket.on("disconnect", () => {
+//     onlineUsers.forEach((socketId, userId) => {
+//       if (socketId === socket.id) {
+//         onlineUsers.delete(userId);
+//       }
+//     });
+//   });
+// });
