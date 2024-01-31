@@ -1,9 +1,9 @@
 // user.js (updated)
 const mongoose = require("mongoose");
-const cartModel = require("./cart"); // Adjust the path accordingly
+const cartModel = require("./usercart"); // Adjust the path accordingly
 
 const userSchema = new mongoose.Schema({
-  username: {
+  name: {
     type: String,
     required: true,
   },
@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Cart",
   },
+  allergies : [
+    {type : String}
+  ]
 });
 
 userSchema.pre("save", async function (next) {
