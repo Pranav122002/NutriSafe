@@ -26,7 +26,7 @@ function App() {
         <VNavbar />
         <Routes>
           <Route path="/" element={<Landing />}></Route>
-          <Route path="/stores" element={<Stores />}></Route>
+
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/user/:userid" element={<UserProfile />}></Route>
