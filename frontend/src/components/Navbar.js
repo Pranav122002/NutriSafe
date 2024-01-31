@@ -19,6 +19,7 @@ export default function Navbar({ login }) {
 
   useEffect(() => {
     setOnHome(location.pathname === "/home");
+    setOnHome(location.pathname === "/blogposts");
     setOnChat(location.pathname === "/chat");
     setOnProfile(location.pathname === "/profile");
   }, [location]);
@@ -40,6 +41,10 @@ export default function Navbar({ login }) {
 
           <NavLink to="/chat">
             <li>Chat</li>
+          </NavLink>
+
+          <NavLink to="/blogposts">
+            <li>BlogPosts</li>
           </NavLink>
 
           <NavLink to="/profile">
