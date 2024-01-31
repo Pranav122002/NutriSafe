@@ -17,6 +17,7 @@ import GroupChat from "./components/GroupChat";
 import BlogPost from "./components/BlogPost";
 import Landing from "./components/Landing";
 import Download from "./components/Download";
+import Allergy from "./components/Allergy";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/blogposts" element={<BlogPost />}></Route>
           <Route path="/stores" element={<Stores />}></Route>
           <Route path="/download" element={<Download />}></Route>
+          <Route path="/allergy" element={<Allergy />}></Route>
         </Routes>
         <ToastContainer />
       </div>
