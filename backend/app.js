@@ -26,6 +26,7 @@ app.use(require("./routes/auth"));
 app.use(require("./routes/message"));
 app.use(require("./routes/admin"))
 app.use(require("./routes/blogpost"))
+app.use(require("./routes/offline"))
 
 mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
