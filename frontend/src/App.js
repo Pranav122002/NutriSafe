@@ -15,8 +15,9 @@ import UserProfile from "./components/UserProfile";
 import PersonalChat from "./components/PersonalChat";
 import GroupChat from "./components/GroupChat";
 import BlogPost from "./components/BlogPost";
-// import Stores from "./components/Stores";
 import Landing from "./components/Landing";
+import Download from "./components/Download";
+import Allergy from "./components/Allergy";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Landing />}></Route>
-          <Route path="/stores" element={<Stores />}></Route>
+
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/user/:userid" element={<UserProfile />}></Route>
@@ -36,6 +37,8 @@ function App() {
           <Route path="/group-chat" element={<GroupChat />}></Route> */}
           <Route path="/blogposts" element={<BlogPost />}></Route>
           <Route path="/stores" element={<Stores />}></Route>
+          <Route path="/download" element={<Download />}></Route>
+          <Route path="/allergy" element={<Allergy />}></Route>
         </Routes>
         <ToastContainer />
       </div>
