@@ -7,9 +7,7 @@ const auth_checker = require("../middlewares/auth");
 
 router.post("/api/create-blogpost", auth_checker, async (req, res) => {
   try {
-    const { title, content, userId } = req.body;
-
-    console.log("req = ", userId);
+    const { title, content, image, userId } = req.body;
 
     const user = await User.findById(userId);
 
@@ -19,6 +17,7 @@ router.post("/api/create-blogpost", auth_checker, async (req, res) => {
 
     const newBlogPost = new BlogPost({
       title,
+      image,
       content,
       user: userId,
     });
@@ -46,8 +45,6 @@ router.post("/api/create-comment/:postId", auth_checker, async (req, res) => {
   try {
     const { text, userId } = req.body;
     const postId = req.params.postId;
-
-    console.log("req.body", req.body);
 
     const user = await User.findById(userId);
     if (!user) {
