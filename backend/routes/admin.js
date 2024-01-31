@@ -190,7 +190,7 @@ router.get("/admin/:storeId", auth_checker, async (req, res) => {
   return res.status(200).json({ data: existingStore });
 });
 
-router.get("/api/get-store-items", auth_checker, async (req, res) => {
+router.get("/api/get-stores", auth_checker, async (req, res) => {
   const stores = await STORE.find({}).populate("foodItems");
     
     // .populate("foodItems", "name location");
