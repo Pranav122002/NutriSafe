@@ -14,11 +14,8 @@ import Navbar from "./components/Navbar";
 import UserProfile from "./components/UserProfile";
 import PersonalChat from "./components/PersonalChat";
 import GroupChat from "./components/GroupChat";
-<<<<<<< HEAD
 import BlogPost from "./components/BlogPost";
-=======
 import Landing from "./components/Landing";
->>>>>>> ff4de967256e3634fab754b8e4810f18578aa2dc
 
 function App() {
   return (

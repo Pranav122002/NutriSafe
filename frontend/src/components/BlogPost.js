@@ -1,168 +1,131 @@
-import React, { useState, useEffect } from "react";
-
+import React, { useState, useEffect } from 'react';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-const BlogApp = () => {
+const BlogPost = () => {
   const [blogPosts, setBlogPosts] = useState([]);
-  const [newPost, setNewPost] = useState({
-    title: "",
-    content: "",
-    userId: "",
-  });
-  const [newComment, setNewComment] = useState({ text: "" });
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [comments, setComments] = useState({}); // Use an object to store comments for each post
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fetch all blog posts on component mount
-  // useEffect(() => {
-  //   fetch(`${API_BASE_URL}/get-blogposts`)
-  //     .then(response => response.json())
-  //     .then(data => setBlogPosts(data))
-  //     .catch(error => console.error('Error fetching blog posts:', error));
-  // }, []);
   useEffect(() => {
-    const fetchBlogPosts = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/get-blogposts`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-          },
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setBlogPosts(data);
-        } else {
-          console.error("Error fetching blog posts:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error fetching blog posts:", error);
-      }
-    };
-
+    // Fetch blog posts on component mount
     fetchBlogPosts();
   }, []);
 
-  // Function to handle form submission for creating a new blog post
-  const handleCreateBlogPost = async (e) => {
-    e.preventDefault();
-
-    setNewPost({
-      ...newPost,
-      userId: JSON.parse(localStorage.getItem("user"))._id,
-    });
-
+  const fetchBlogPosts = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/create-blogpost`, {
-        method: "POST",
+      setLoading(true);
+      const response = await fetch(`${API_BASE_URL}/get-blogposts`, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: "Bearer " + localStorage.getItem("jwt"),
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(newPost),
       });
+      const data = await response.json();
 
-      if (response.status === 201) {
-        const newPostData = await response.json();
-        setBlogPosts([...blogPosts, newPostData]);
-
-        console.log("newpost = ", newPost);
-
-        setNewPost({ title: "", content: "", userId: "" });
+      if (Array.isArray(data)) {
+        setBlogPosts(data);
+      } else if (data && typeof data === 'object') {
+        // If the response is an object, convert it to an array
+        setBlogPosts(Object.values(data));
       } else {
-        console.error("Error creating blog post:", response.statusText);
+        throw new Error('Invalid data format received from the server');
       }
     } catch (error) {
-      console.error("Error creating blog post:", error);
+      setError(error.message || 'An error occurred while fetching blog posts');
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Function to handle form submission for creating a new comment
-  const handleCreateComment = async (postId) => {
+  const handleCreateBlogPost = async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/create-comment/${postId}`, {
-        method: "POST",
+      setLoading(true);
+      await fetch(`${API_BASE_URL}/create-blogpost`, {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: "Bearer " + localStorage.getItem("jwt"),
         },
-        body: JSON.stringify({ text: newComment.text }),
+        body: JSON.stringify({ title, content, userId: JSON.parse(localStorage.getItem("user"))._id }), // Replace with actual userId
       });
 
-      if (response.status === 201) {
-        const updatedPostData = await response.json();
-        // Update the blogPosts state to reflect the new comment
-        setBlogPosts(
-          blogPosts.map((post) =>
-            post._id === updatedPostData._id ? updatedPostData : post
-          )
-        );
-        setNewComment({ text: "" });
-      } else {
-        console.error("Error creating comment:", response.statusText);
-      }
+      // Fetch updated blog posts after creation
+      fetchBlogPosts();
     } catch (error) {
-      console.error("Error creating comment:", error);
+      setError(error.message || 'An error occurred while creating a blog post');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCreateComment = async (postId) => {
+    try {
+      setLoading(true);
+      await fetch(`${API_BASE_URL}/create-comment/${postId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+        body: JSON.stringify({ text: comments[postId], userId: JSON.parse(localStorage.getItem("user"))._id }), // Use the specific comment for the post
+      });
+
+      // Fetch updated blog posts after comment creation
+      fetchBlogPosts();
+    } catch (error) {
+      setError(error.message || 'An error occurred while creating a comment');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
-      <h1>Blog Posts</h1>
-
-      {/* Display Blog Posts */}
-      <div>
-        {blogPosts.map((post) => (
-          <div key={post._id}>
-            <h2>{post.title}</h2>
-            <p>{post.content}</p>
-
-            {/* Display Comments */}
-            <ul>
-              {post.comments.map((comment) => (
-                <li key={comment._id}>{comment.text}</li>
-              ))}
-            </ul>
-
-            {/* Form to Add New Comment */}
-            <form onSubmit={() => handleCreateComment(post._id)}>
-              <label htmlFor="comment">Add Comment:</label>
-              <input
-                type="text"
-                id="comment"
-                value={newComment.text}
-                onChange={(e) => setNewComment({ text: e.target.value })}
-                required
-              />
-              <button type="submit">Add Comment</button>
-            </form>
-          </div>
-        ))}
-      </div>
-
-      {/* Form to Add New Blog Post */}
-      <form onSubmit={handleCreateBlogPost}>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={newPost.title}
-          onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-          required
-        />
-        <br />
-        <label htmlFor="content">Content:</label>
-        <textarea
-          id="content"
-          value={newPost.content}
-          onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-          required
-        ></textarea>
-        <br />
-        <button type="submit">Create Blog Post</button>
-      </form>
+      <h2>Blog Posts</h2>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {/* Display blog posts */}
+      {blogPosts.map((post) => (
+        <div key={post._id}>
+          <h3>{post.title}</h3>
+          <p>{post.content}</p>
+          <p>Posted by: {post.user.name}</p>
+          {/* Display comments */}
+          <ul>
+            {post.comments.map((comment) => (
+              <li key={comment._id}>{comment.text} - {comment.user.name}</li>
+            ))}
+          </ul>
+          {/* Allow adding comments */}
+          <input
+            type="text"
+            placeholder="Add a comment"
+            value={comments[post._id] || ''}
+            onChange={(e) => setComments({ ...comments, [post._id]: e.target.value })}
+          />
+          <button onClick={() => handleCreateComment(post._id)}>Add Comment</button>
+        </div>
+      ))}
+      {/* Allow adding new blog posts */}
+      <h2>Create a New Blog Post</h2>
+      <input
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <textarea
+        placeholder="Content"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+      ></textarea>
+      <button onClick={handleCreateBlogPost}>Create Blog Post</button>
     </div>
   );
 };
 
-export default BlogApp;
+export default BlogPost;

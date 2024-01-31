@@ -8,6 +8,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post("/api/signup", (req, res) => {
   const { name, email, password } = req.body;
+  console.log("req = ", req.body);
   
 
   if (!name || !email || !password) {

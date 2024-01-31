@@ -29,4 +29,9 @@ const blogpostSchema = new mongoose.Schema({
   },
 });
 
+blogpostSchema.pre('find', function (next) {
+  this.populate('comments.user');
+  next();
+});
+
 mongoose.model("BLOGPOST", blogpostSchema);

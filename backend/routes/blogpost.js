@@ -8,7 +8,7 @@ const auth_checker = require("../middlewares/auth");
 router.post("/api/create-blogpost", auth_checker, async (req, res) => {
   try {
     const { title, content, userId } = req.body;
-   
+
     console.log("req = ", userId);
 
     const user = await User.findById(userId);
@@ -33,11 +33,7 @@ router.post("/api/create-blogpost", auth_checker, async (req, res) => {
 
 router.get("/api/get-blogposts", auth_checker, async (req, res) => {
   try {
-    const blogPosts = await BlogPost.find();
-    // const blogPosts = await BlogPost.find().populate("user", [
-    //   "title",
-    //   "content",
-    // ]);
+    const blogPosts = await BlogPost.find().populate("user");
 
     res.status(200).json(blogPosts);
   } catch (error) {
