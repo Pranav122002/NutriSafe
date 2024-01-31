@@ -8,7 +8,10 @@ const storeModel = require("../models/store");
 const userModel = require("../models/user");
 const userItem = require("../models/useritem");
 const axios = require("axios");
-router.get("/api/all-users-except/:id", auth_checker,async (req, res, next) => {
+const auth_checker = require("../middlewares/auth")
+
+
+router.get("/api/all-users-except/:id",auth_checker, async (req, res, next) => {
   try {
     const users = await USER.find({ _id: { $ne: req.params.id } }).select([
       "email",
@@ -21,7 +24,7 @@ router.get("/api/all-users-except/:id", auth_checker,async (req, res, next) => {
   }
 });
 
-router.get("/api/user/:id", auth_checker,(req, res) => {
+router.get("/api/user/:id",auth_checker, (req, res) => {
   USER.findOne({ _id: req.params.id })
     .select("-password")
     .then((user) => {
@@ -32,7 +35,7 @@ router.get("/api/user/:id", auth_checker,(req, res) => {
     });
 });
 
-router.post("/api/search-users", auth_checker,(req, res) => {
+router.post("/api/search-users",auth_checker, (req, res) => {
   let userPattern = new RegExp(req.body.query, "i"); // add "^" at start for exact search
   USER.find({ name: { $regex: userPattern } })
     .select("_id email name")
