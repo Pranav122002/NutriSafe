@@ -13,7 +13,7 @@ export default function VNavbar() {
                     <h1 className="ml-4 text-lg font-medium">NutriSafe</h1>
                 </div>
 
-                <NavLink to="/home" className="w-11/12 ml-3 flex hover:pl-2 hover:mr-2 rounded hover:bg-gray-100 mt-1.5 " >
+                <NavLink to="/stores" className="w-11/12 ml-3 flex hover:pl-2 hover:mr-2 rounded hover:bg-gray-100 mt-1.5 " >
                     <img className="h-6 m-3" src="./locality.png" alt="" />
                     <h1 className="text-base text-gray-700  pt-3 pb-3 tracking-tight font-medium ">Stores</h1>
                 </NavLink>

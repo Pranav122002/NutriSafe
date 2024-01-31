@@ -30,7 +30,7 @@ export default function Navbar() {
     if (token) {
       return [
         <>
-          <div>
+          <div className="p-[1px]">
 
             <div className="sma w-screen bg-white h-16 shadow-md flex justify-between">
               <div className="sma w-screen flex justify-between">

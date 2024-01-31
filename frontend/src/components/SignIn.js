@@ -47,58 +47,65 @@ export default function SignIn() {
 
   return (
     <>
-      <div>
-        <div>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
+      <div className="background-container">
+        <div className="blurred-image">
         </div>
 
-        <div>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
+        <div className="form-container rounded-md">
+          <div className="signin-form">
+            <div>
+              <h2 className="font-bold text-3xl">Sign in</h2>
 
-        <div>
-          <button
-            type="submit"
-            onClick={() => {
-              postData();
-            }}
-          >
-            Sign in
-          </button>
-        </div>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
 
-        <div>
-          Don't have an account?
-          <Link to="/signup">
-            <span> Sign Up</span>
-          </Link>
+            <div>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                onClick={() => {
+                  postData();
+                }}
+              >
+                Sign in
+              </button>
+            </div>
+
+            <div>
+              Don't have an account?
+              <Link to="/signup">
+                <span> Sign Up</span>
+              </Link>
+            </div>
+          </div>
+
+
         </div>
       </div>
 
 
 
-
-
-
-      
     </>
   );
 }
