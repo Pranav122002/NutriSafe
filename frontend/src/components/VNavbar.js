@@ -65,6 +65,16 @@ export default function VNavbar() {
           </NavLink>
 
           <NavLink
+            to="/qr"
+            className="w-11/12 ml-3 flex rounded hover:bg-gray-100 mt-1.5"
+          >
+            <img className="h-6 m-3" src="./chat.png" alt="" />
+            <h1 className=" pt-3 pb-3 font-medium text-base tracking-tight">
+              QR Scanner
+            </h1>
+          </NavLink>
+
+          <NavLink
             to="/allergy"
             className="w-11/12 ml-3 flex rounded hover:bg-gray-100 mt-1.5"
           >
