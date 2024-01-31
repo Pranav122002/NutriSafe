@@ -6,13 +6,13 @@ export default function Home() {
   const navigate = useNavigate();
 
   // require login
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("jwt");
 
-    if (!token) {
-      navigate("/signin");
-    }
-  });
+  //   if (!token) {
+  //     navigate("/signin");
+  //   }
+  // });
 
   return (
     <>

@@ -14,6 +14,7 @@ import Navbar from "./components/Navbar";
 import UserProfile from "./components/UserProfile";
 import PersonalChat from "./components/PersonalChat";
 import GroupChat from "./components/GroupChat";
+import Landing from "./components/Landing";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<SignIn />}></Route>
+          <Route path="/" element={<Landing />}></Route>
           <Route path="/home" element={<Home />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
