@@ -8,7 +8,7 @@ const storeModel = require("../models/store");
 const userModel = require("../models/user");
 const userItem = require("../models/useritem");
 const axios = require("axios");
-const auth_checker = require("../middlewares/auth")
+
 
 
 router.get("/api/all-users-except/:id",auth_checker, async (req, res, next) => {
@@ -183,4 +183,24 @@ router.post("/api/recipes",auth_checker,async(req,res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 })
+router.post("/api/addallergies", auth_checker,async (req, res) => {
+  try {
+    const userId = req.userData._id;
+    const { allergies } = req.body;
+    if (!allergies || !Array.isArray(allergies)) {
+      return res.status(422).json({ error: "Please provide a valid array of allergies" });
+    }
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    user.allergies = [...user.allergies, ...allergies];
+    await user.save();
+
+    res.status(200).json({ message: "Allergies added successfully", user });
+  } catch (error) {
+    console.error("Error adding allergies to the user:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 module.exports = router;
