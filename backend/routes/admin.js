@@ -168,4 +168,9 @@ router.post("/admin/addproducts",auth_checker,fileUpload.single("myfile"),async(
         res.status(500).json({ error: "Internal Server Error" });
       }
 })
+router.get("/admin/:storeId",auth_checker,async(req,res) => {
+    const storeId = req.params.storeId;
+    const existingStore = await storeModel.findById(storeId).populate("foodItems","name location")
+    return res.status(200).json({data : existingStore});
+})
 module.exports = router;

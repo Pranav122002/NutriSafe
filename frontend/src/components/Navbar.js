@@ -10,12 +10,12 @@ export default function Navbar({ login }) {
   const [onProfile, setOnProfile] = useState(false);
   const [user, setUser] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    if (!token) {
-      navigate("/signin");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("jwt");
+  //   if (!token) {
+  //     navigate("/signin");
+  //   }
+  // }, []);
 
   useEffect(() => {
     setOnHome(location.pathname === "/home");

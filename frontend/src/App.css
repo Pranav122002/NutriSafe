@@ -1,6 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   text-align: center;
 }
+
+.active{
+  background-color: rgb(44, 207, 191);
+  border-radius: 5px;
+}
+.active h1{
+  color: white;
+  font-weight: 500;
+}
+.active img{
+  color: white;
+  filter: invert(100%);
+}
+
+.liness{
+  filter: invert(59%) sepia(90%) saturate(349%) hue-rotate(125deg) brightness(98%)
+}
+
+.uppersvg{
+  background-color: #48c1f1
+}
+
+.lowersvg{
+  background-image: url( '../public/wave3.png' );
+  background-repeat: no-repeat;
+  background-size: contain;
+  filter: invert(65%) sepia(85%) saturate(687%) hue-rotate(165deg) brightness(97%) contrast(94%);
+ 
+}
+
+.uppersvg a{
+  display: block;
+}
+.flexp{
+  background-color: rgb(44, 207, 191);
+  color: white;
+  padding: 1rem;
+  font-weight: 500;
+  font-family:monospace;
+  border-radius: 0.2rem;
+  
+}
+.imgsc{
+  
+  background-color: white;
+}
+
+.bottom{
+  background-color: rgb(44, 207, 191);
+}
+
 
 .App-logo {
   height: 40vmin;
