@@ -10,15 +10,16 @@ export default function Navbar({ login }) {
   const [onProfile, setOnProfile] = useState(false);
   const [user, setUser] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("jwt");
-    if (!token) {
-      navigate("/signin");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("jwt");
+  //   if (!token) {
+  //     navigate("/signin");
+  //   }
+  // }, []);
 
   useEffect(() => {
     setOnHome(location.pathname === "/home");
+    setOnHome(location.pathname === "/blogposts");
     setOnChat(location.pathname === "/chat");
     setOnProfile(location.pathname === "/profile");
   }, [location]);
@@ -40,6 +41,10 @@ export default function Navbar({ login }) {
 
           <NavLink to="/chat">
             <li>Chat</li>
+          </NavLink>
+
+          <NavLink to="/blogposts">
+            <li>BlogPosts</li>
           </NavLink>
 
           <NavLink to="/profile">

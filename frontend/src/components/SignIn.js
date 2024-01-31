@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = "http://localhost:5000/api";
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -50,13 +49,9 @@ export default function SignIn() {
     <>
       <div className="background-container">
         <div className="blurred-image">
-        {/* <img src="./assets/images/a.jpg" alt="SignInImage" /> */}
 </div>
         
         <div className="form-container">
-          {/* Your content here */}
-          {/* <h1>Welcome to My Website</h1>
-        <p>This is a sample text.</p> */}
           <div className="signin-form">
             <div>
             <h2>Sign in</h2>

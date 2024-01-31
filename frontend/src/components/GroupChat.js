@@ -36,7 +36,7 @@ export default function GroupChat() {
           setUserName(result.user.name);
         });
     }
-  }, []);
+  }, );
 
   useEffect(() => {
     fetch(`${API_BASE_URL}/all-group-messages`)
