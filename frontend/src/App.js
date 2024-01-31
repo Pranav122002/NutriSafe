@@ -15,7 +15,7 @@ import UserProfile from "./components/UserProfile";
 import PersonalChat from "./components/PersonalChat";
 import GroupChat from "./components/GroupChat";
 import BlogPost from "./components/BlogPost";
-import Stores from "./components/Stores";
+// import Stores from "./components/Stores";
 import Landing from "./components/Landing";
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Navbar />
-        <VNavbar />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Landing />}></Route>
           <Route path="/stores" element={<Stores />}></Route>
