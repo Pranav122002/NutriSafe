@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const CLOUD_NAME = "pranav-cloud";
 const UPLOAD_PRESET = "nutrisafe";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = "http://localhost:5000/api"
 
 const BlogPost = () => {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -119,17 +119,24 @@ const BlogPost = () => {
   };
 
   return (
-    <div>
-      <h2>Blog Posts</h2>
+  
+    <div className=''>
+      <div className='p-10 pt-20 w-4/6 ml-auto mr-40 '>
+      <h2 className='text-4xl  text-left '>Blogs</h2>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {/* Display blog posts */}
       {blogPosts.map((post) => (
         <div key={post._id}>
+          <div className='flex '>
+          <img className='' src="./user.png" alt="" />
+          <p>Posted by: {post.user.name}</p>
+          </div>
+          
           <h3>{post.title}</h3>
           <p>{post.content}</p>
           <img src={post.image} alt="image" />
-          <p>Posted by: {post.user.name}</p>
+          
           {/* Display comments */}
           <ul>
             {post.comments.map((comment) => (
@@ -147,7 +154,7 @@ const BlogPost = () => {
         </div>
       ))}
       {/* Allow adding new blog posts */}
-      <h2>Create a New Blog Post</h2>
+      {/* <h2>Create a New Blog Post</h2>
       <input
         type="text"
         placeholder="Title"
@@ -159,16 +166,16 @@ const BlogPost = () => {
         value={content}
         onChange={(e) => setContent(e.target.value)}
       ></textarea>
-     
-        <button
-          id="post-btn"
-          onClick={() => {
-            postDetails();
-          }}
-        >
-          Submit
-        </button>
-        <div className="main-div">
+
+      <button
+        id="post-btn"
+        onClick={() => {
+          postDetails();
+        }}
+      >
+        Submit
+      </button>
+      <div className="main-div">
         <img
           id="output"
           src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"
@@ -181,8 +188,9 @@ const BlogPost = () => {
             setImage(event.target.files[0]);
           }}
         />
-      </div>
+      </div> */}
       {/* <button onClick={handleCreateBlogPost}>Create Blog Post</button> */}
+    </div>
     </div>
   );
 };

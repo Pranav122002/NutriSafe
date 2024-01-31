@@ -1,16 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const adminModel = require("../models/admin")
-const storeModel = require("../models/store")
+const adminModel = require("../models/admin");
+const storeModel = require("../models/store");
+const STORE = mongoose.model("STORE");
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const auth_checker = require("../middlewares/auth")
-const fileUpload = require("../middlewares/upload")
+const auth_checker = require("../middlewares/auth");
+const fileUpload = require("../middlewares/upload");
 const foodItem = require("../models/FoodItem");
 const csvParser = require("csv-parser");
-require("dotenv").config()
-const fs = require("fs")
+require("dotenv").config();
+const fs = require("fs");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post("/admin/signup", (req, res) => {
@@ -72,9 +74,10 @@ router.post("/admin/signin", (req, res) => {
       .catch((err) => console.log(err));
   });
 });
-router.post("/admin/addstore",auth_checker,async(req,res) => {
-    const adminId = req.userData._id;
-    const { storeName, location } = req.body;
+
+router.post("/admin/addstore", auth_checker, async (req, res) => {
+  const adminId = req.userData._id;
+  const { storeName, location } = req.body;
 
   try {
     if (!storeName || !location) {
@@ -106,10 +109,10 @@ router.post("/admin/addstore",auth_checker,async(req,res) => {
     console.error("Error adding store to admin:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
+});
 
-})
-router.get("/admin/profile",auth_checker,async(req,res) => {
-    const adminId = req.userData._id;
+router.get("/admin/profile", auth_checker, async (req, res) => {
+  const adminId = req.userData._id;
 
   try {
     const admin = await adminModel
@@ -126,51 +129,72 @@ router.get("/admin/profile",auth_checker,async(req,res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
-router.post("/admin/addproducts",auth_checker,fileUpload.single("myfile"),async(req,res) => {
+
+router.post(
+  "/admin/addproducts",
+  auth_checker,
+  fileUpload.single("myfile"),
+  async (req, res) => {
     try {
-        const filename = req.file.filename;
-        const storeId = req.body.storeId;
-        const foodItems = await new Promise((resolve, reject) => {
-          const items = [];
-          fs.createReadStream("./templates/" + filename)
-            .pipe(csvParser())
-            .on("data", (row) => {
-              const foodItem_ = new foodItem({
-                name: row.name,
-                location: {
-                  floor: row.floor,
-                  department: row.department,
-                },
-                containsAllergens: row.containsAllergens === "true",
-                price: parseFloat(row.price),
-              });
-              items.push(foodItem_);
-            })
-            .on("end", () => resolve(items))
-            .on("error", (error) => reject(error));
-        });
+      const filename = req.file.filename;
+      const storeId = req.body.storeId;
+      const foodItems = await new Promise((resolve, reject) => {
+        const items = [];
+        fs.createReadStream("./templates/" + filename)
+          .pipe(csvParser())
+          .on("data", (row) => {
+            const foodItem_ = new foodItem({
+              name: row.name,
+              location: {
+                floor: row.floor,
+                department: row.department,
+              },
+              containsAllergens: row.containsAllergens === "true",
+              price: parseFloat(row.price),
+            });
+            items.push(foodItem_);
+          })
+          .on("end", () => resolve(items))
+          .on("error", (error) => reject(error));
+      });
+
+      // Save all FoodItems to the database
+      const savedFoodItems = await foodItem.insertMany(foodItems);
+      const existingStore = await storeModel.findById(storeId);
+      existingStore.foodItems = existingStore.foodItems.concat(
+        savedFoodItems.map((item) => item._id)
+      );
+      await existingStore.save().then((saved, err) => {
+        if (err) {
+          return res
+            .status(400)
+            .json({ message: "Could not add the items in you store" });
+        } else {
+          return res
+            .status(200)
+            .json({ message: "Successfully added the items in the store" });
+        }
+      });
+    } catch (error) {
+      console.error("Error importing data:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
+
+router.get("/admin/:storeId", auth_checker, async (req, res) => {
+  const storeId = req.params.storeId;
+  const existingStore = await storeModel
+    .findById(storeId)
+    .populate("foodItems", "name location");
+  return res.status(200).json({ data: existingStore });
+});
+
+router.get("/api/get-stores", auth_checker, async (req, res) => {
+  const stores = await STORE.find({}).populate("foodItems");
     
-        // Save all FoodItems to the database
-        const savedFoodItems = await foodItem.insertMany(foodItems);
-        const existingStore = await storeModel.findById(storeId);
-        existingStore.foodItems = existingStore.foodItems.concat(savedFoodItems.map((item) => item._id));
-        await existingStore.save()
-        .then((saved,err) => {
-            if (err) {
-                return res.status(400).json({message : "Could not add the items in you store"})
-            }
-            else{
-                return res.status(200).json({message : "Successfully added the items in the store"})
-            }
-        })
-      } catch (error) {
-        console.error("Error importing data:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-      }
-})
-router.get("/admin/:storeId",auth_checker,async(req,res) => {
-    const storeId = req.params.storeId;
-    const existingStore = await storeModel.findById(storeId).populate("foodItems","name location")
-    return res.status(200).json({data : existingStore});
-})
+    // .populate("foodItems", "name location");
+  return res.status(200).json(stores);
+});
+
 module.exports = router;

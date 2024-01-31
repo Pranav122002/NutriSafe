@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const StoreSchema = mongoose.Schema({
+const storeSchema = mongoose.Schema({
     name : {
         type : String,
         required : true,
@@ -15,5 +15,4 @@ const StoreSchema = mongoose.Schema({
         }
     ], 
 })
-const storeModel = mongoose.model("store",StoreSchema);
-module.exports = storeModel
+module.exports = mongoose.model("STORE", storeSchema);

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = "http://localhost:5000/api"
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function SignUp() {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
 
   const postData = () => {
-    //checking email syntax
+    // checking email syntax
     if (!emailRegex.test(email)) {
       notifyA("Invalid email");
       return;
@@ -55,60 +55,70 @@ export default function SignUp() {
 
   return (
     <>
-      <div>
-        <div>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-          />
+      <div className="background-container">
+        <div className="blurred-image">
         </div>
 
-        <div>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </div>
 
-        <button
-          type="submit"
-          id="submit-btn"
-          onClick={() => {
-            postData();
-          }}
-        >
-          Sign Up
-        </button>
-      </div>
-      <div>
-        Have an account?
-        <Link to="/signin">
-          <span> Sign in</span>
-        </Link>
+        <div className="form-container">
+          <div className="signin-form">
+            <div>
+              <h2 className="font-bold text-3xl" >Sign Up</h2>
+
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+              />
+            </div>
+
+            <div>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+
+            <button
+              type="submit"
+              id="submit-btn"
+              onClick={() => {
+                postData();
+              }}
+            >
+              Sign Up
+            </button>
+            <div>
+              Have an account?
+              <Link to="/signin">
+                <span> Sign in</span>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

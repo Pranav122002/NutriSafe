@@ -33,10 +33,10 @@ const Landing = () => {
         </NavLink>
       </div>
 
-      <div className="lowersvg h-max w-screen p-1  ">
+      <div className="lowersvg pt-80  h-max w-screen p-1  ">
         <img data-aos="fade-up-right" src="./worldh.png" className=" m-auto ml-[58%] -mb-32 -mt-40 relative drop-shadow-xl " alt="" />
         <div className="-z-30  flex justify-center">
-          <img data-aos="zoom-in" src="./fitness.png" className="h-96 drop-shadow-4xl -mr-[6.7rem] z-20 " alt="" />
+          <img data-aos="zoom-in" src="./food.png" className="h-96 drop-shadow-4xl -mr-[6.7rem] z-20 " alt="" />
           <div className=" w-auto h-max shadow-md p-6 bg-white z-10 relative rounded-2xl">
             <img src="./mainbg.png" className="z-30 ml-auto mr-auto w-[40rem] rounded" alt="" />
           </div>
@@ -58,7 +58,8 @@ const Landing = () => {
      data-aos-easing="ease-out-cubic"
      data-aos-duration="2000" className="flexitem w-1/3">
           <img src="./news2.png " className="imgsc shadow-md rounded-full p-2 w-16 m-auto -mb-2 z-40 relative " alt="" />
-          <p className="flexp w-5/6 z-10 m-auto shadow-lg h-40">Regional wise News headlines on Health related information.</p>
+          <p className="flexp w-5/6 z-10 m-auto shadow-lg h-40">A list of stores where the user can find products that are safe to
+consume- thus saving time.</p>
         </div>
         <div data-aos="flip-left"
      data-aos-easing="ease-out-cubic"
