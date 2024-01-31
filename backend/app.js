@@ -17,10 +17,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require("./models/user");
 require("./models/group_message");
 require("./models/personal_message");
+require("./models/admin")
 
 app.use(require("./routes/user"));
 app.use(require("./routes/auth"));
 app.use(require("./routes/message"));
+app.use(require("./routes/admin"))
 
 mongoose.connect(MONGOURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
