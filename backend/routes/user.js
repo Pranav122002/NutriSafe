@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const USER = require("../models/user")
+const auth_checker = require("../middlewares/auth");
 
 const stores = require("../models/store");
 const storeModel = require("../models/store");
@@ -207,6 +208,69 @@ router.post("/api/addallergies", auth_checker,async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+router.get("/api/user/:userId/allergies", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json({ allergies: user.allergies });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.post("/api/user/:userId/add-allergies", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { allergies } = req.body;
+
+    // Find the user by ID
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Update the user's allergies
+    user.allergies = allergies;
+    await user.save();
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.delete("/api/user/:userId/delete-allergy", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { index } = req.body;
+
+    // Find the user by ID
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Remove the selected allergy from the user's allergies array
+    user.allergies.splice(index, 1);
+    await user.save();
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 router.get("/api/recommendedproducts",auth_checker,async(req,res) => {
   try {
     const userId = req.userData._id;

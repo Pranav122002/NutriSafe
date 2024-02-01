@@ -19,18 +19,26 @@ const Landing = () => {
   return (
     <div className="landpage w-screen h-screen font-custom text-xl font-semibold  ">
       <div className="uppersvg h-80 pt-1">
+
         <h1 className="font-Danc text-5xl italic text-white text-center mt-8  ">NutriSafe</h1>
         <h1 className="font-Nan text-white text-center mt-8 text-4xl">Where Insights and Interaction Converge</h1>
-        
+
         <div className='App font-Rubik text-white text-center mt-2 text-xl'>
           <span>{text}</span>
           <Cursor cursorColor='white' />
         </div>
-        <NavLink to="/signin" className="w-40 m-auto" >
-          <div className="bg-white pt-2 mt-10 text-center w-40 h-12 z-100 rounded-full shadow-md">
-            <h1 className="text-gray-600">Get Started</h1>
-          </div>
-        </NavLink>
+        <div className="flex w-96 ml-auto mr-auto">
+          <NavLink to="/signin" className="w-40 m-auto" >
+            <div className="bg-white pt-2 mt-10 text-center w-40 h-12 z-100 rounded-full shadow-md">
+              <h1 className="text-gray-600">Get Started</h1>
+            </div>
+          </NavLink>
+          <NavLink to="/admin/signin" className="w-40 m-auto" >
+            <div className="bg-white pt-2 mt-10 text-center w-40 h-12 z-100 rounded-full shadow-md">
+              <h1 className="text-gray-600">Store Owner</h1>
+            </div>
+          </NavLink>
+        </div>
       </div>
 
       <div className="lowersvg pt-80  h-max w-screen p-1  ">
@@ -41,29 +49,29 @@ const Landing = () => {
             <img src="./mainbg.png" className="z-30 ml-auto mr-auto w-[40rem] rounded" alt="" />
           </div>
           <img data-aos="fade-left"
-     data-aos-offset="300"
-     src="./phone.png" className="h-96 drop-shadow-3xl -ml-40 z-20 mt-40" alt="" />
+            data-aos-offset="300"
+            src="./phone.png" className="h-96 drop-shadow-3xl -ml-40 z-20 mt-40" alt="" />
         </div>
 
       </div>
       <hr className="w-5/6 m-auto mt-12" />
       <div className="content flex w-4/6 m-auto  justify-evenly mt-12">
-        <div  data-aos="flip-left"
-     data-aos-easing="ease-out-cubic"
-     data-aos-duration="2000" className="flexitem w-1/3">
+        <div data-aos="flip-left"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000" className="flexitem w-1/3">
           <img src="./locality.png" className="imgsc shadow-md rounded-full p-2 w-16 m-auto -mb-2 z-40 relative" alt="" />
           <p className="flexp w-5/6 z-10 m-auto shadow-lg h-40">personalized information about diseases and it’s outbreaks in regions of close vicinity.</p>
         </div>
-        <div  data-aos="flip-left"
-     data-aos-easing="ease-out-cubic"
-     data-aos-duration="2000" className="flexitem w-1/3">
+        <div data-aos="flip-left"
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000" className="flexitem w-1/3">
           <img src="./news2.png " className="imgsc shadow-md rounded-full p-2 w-16 m-auto -mb-2 z-40 relative " alt="" />
           <p className="flexp w-5/6 z-10 m-auto shadow-lg h-40">A list of stores where the user can find products that are safe to
-consume- thus saving time.</p>
+            consume- thus saving time.</p>
         </div>
         <div data-aos="flip-left"
-     data-aos-easing="ease-out-cubic"
-     data-aos-duration="2000" className="flexitem w-1/3">
+          data-aos-easing="ease-out-cubic"
+          data-aos-duration="2000" className="flexitem w-1/3">
           <img src="./hospital.png" className="imgsc shadow-md rounded-full p-2 w-16 m-auto -mb-2 z-40 relative " alt="" />
           <p className="flexp w-5/6 z-10 m-auto shadow-lg h-40">Building a chat based community for sharing Health insights.</p>
         </div>
@@ -78,10 +86,10 @@ consume- thus saving time.</p>
           <img src="./research.png" className="imgsc shadow-md rounded-full p-2 h-12 " alt="" />
         </div>
         <div className="flex justify-evenly w-1/4 m-auto mt-2 ">
-            <h1 className="text-white text-md font-Nan font-medium">HOME</h1>
-            <h1 className="text-white text-md font-Nan font-medium">ABOUT</h1>
-            <h1 className="text-white text-md font-Nan font-medium">CONTACT</h1>
-            <h1 className="text-white text-md font-Nan font-medium">SIGNIN</h1>
+          <h1 className="text-white text-md font-Nan font-medium">HOME</h1>
+          <h1 className="text-white text-md font-Nan font-medium">ABOUT</h1>
+          <h1 className="text-white text-md font-Nan font-medium">CONTACT</h1>
+          <h1 className="text-white text-md font-Nan font-medium">SIGNIN</h1>
         </div>
       </div>
 

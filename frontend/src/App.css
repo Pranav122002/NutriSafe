@@ -35,6 +35,20 @@
   
  
 }
+
+.compop{
+  box-shadow: 0 -5px 5px -5px #333;
+  animation: fadeIn 0.5s ease;
+}
+ @keyframes fadeIn {
+      from {
+        height: 10rem;
+      }
+      to {
+        height: 30rem;
+      }
+    }
+
 .sma{
   position: fixed;
   z-index: 9999;
@@ -70,13 +84,18 @@
   height: 40vmin;
   pointer-events: none;
 }
+.nbstores{
+  flex-wrap: wrap;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.bgbut{
+  background-color: #48c1f1;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

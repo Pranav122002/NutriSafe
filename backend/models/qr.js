@@ -1,17 +1,14 @@
-const fs = require('fs');
-const qr = require('qrcode');
+const mongoose = require("mongoose")
 
-// Text or data you want to encode into the QR code
-const qrText = 'SMelly Cheese';
-
-// File path where you want to save the generated QR code image
-const filePath = '../qr/qrcode.png';
-
-// Generate QR code
-qr.toFile(filePath, qrText, (err) => {
-  if (err) {
-    console.error('Error generating QR code:', err);
-    return;
-  }
-  console.log('QR code generated successfully!');
+const qrSchema = mongoose.Schema({
+  data: {
+    type: Object,
+    required: true,
+  },
+  url: {
+    type: String,
+    required: true,
+  },
 });
+
+module.exports = mongoose.model("QR", qrSchema);

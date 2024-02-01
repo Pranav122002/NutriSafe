@@ -15,13 +15,18 @@ const BlogPost = () => {
   const [error, setError] = useState(null);
   const [image, setImage] = useState("");
   const [url, setUrl] = useState("");
+  const [showComments, setShowComments] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
 
+  const handleToggle = () => {
+    setIsVisible(!isVisible);
+  };
   useEffect(() => {
     // Fetch blog posts on component mount
     fetchBlogPosts();
   }, []);
 
-  useEffect(() => { if(url){handleCreateBlogPost()} }, [url]);
+  useEffect(() => { if (url) { handleCreateBlogPost() } }, [url]);
 
   const postDetails = () => {
     console.log("image = ", image);
@@ -46,7 +51,7 @@ const BlogPost = () => {
       URL.revokeObjectURL(output.src); // free memory
     };
   };
-  
+
 
   const fetchBlogPosts = async () => {
     try {
@@ -75,7 +80,7 @@ const BlogPost = () => {
   };
 
   const handleCreateBlogPost = async () => {
-    
+
 
     try {
       setLoading(true);
@@ -119,78 +124,130 @@ const BlogPost = () => {
   };
 
   return (
-  
-    <div className=''>
-      <div className='p-10 pt-20 w-4/6 ml-auto mr-40 '>
-      <h2 className='text-4xl  text-left '>Blogs</h2>
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {/* Display blog posts */}
-      {blogPosts.map((post) => (
-        <div key={post._id}>
-          <div className='flex '>
-          <img className='' src="./user.png" alt="" />
-          <p>Posted by: {post.user.name}</p>
-          </div>
-          
-          <h3>{post.title}</h3>
-          <p>{post.content}</p>
-          <img src={post.image} alt="image" />
-          
-          {/* Display comments */}
-          <ul>
-            {post.comments.map((comment) => (
-              <li key={comment._id}>{comment.text} - {comment.user.name}</li>
-            ))}
-          </ul>
-          {/* Allow adding comments */}
-          <input
-            type="text"
-            placeholder="Add a comment"
-            value={comments[post._id] || ''}
-            onChange={(e) => setComments({ ...comments, [post._id]: e.target.value })}
-          />
-          <button onClick={() => handleCreateComment(post._id)}>Add Comment</button>
-        </div>
-      ))}
-      {/* Allow adding new blog posts */}
-      {/* <h2>Create a New Blog Post</h2>
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <textarea
-        placeholder="Content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-      ></textarea>
 
-      <button
-        id="post-btn"
-        onClick={() => {
-          postDetails();
-        }}
-      >
-        Submit
-      </button>
-      <div className="main-div">
+    <div className=''>
+
+      <div className='fixed rounded-lg shadow-xl h-96 -right-5 -bottom-5 z-40 bg-white mr-10 p-5 '>
         <img
-          id="output"
-          src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"
+          className='h-20 fixed right-10 bottom-10'
+          src="./plus.png"
+          alt=""
+          onClick={handleToggle}
+          style={{ cursor: 'pointer' }}
         />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(event) => {
-            loadfile(event);
-            setImage(event.target.files[0]);
-          }}
-        />
-      </div> */}
-      {/* <button onClick={handleCreateBlogPost}>Create Blog Post</button> */}
-    </div>
+        <div>
+          {isVisible && (
+            <div className='text-left '>
+              <h2 className='text-left text-xl'>Create a New Blog Post</h2>
+              <input
+                type="text"
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <textarea
+                className='text-left'
+                placeholder="Content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              ></textarea>
+
+              
+              <div className="main-div">
+                <img
+                  className='w-[20%]'
+                  id="output"
+                  src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"
+                />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => {
+                    loadfile(event);
+                    setImage(event.target.files[0]);
+                  }}
+                />
+                <button
+                id="post-btn"
+                onClick={() => {
+                  postDetails();
+                }}
+              >
+                Submit
+              </button>
+              </div>
+            </div>
+
+          )}
+        </div>
+      </div>
+      <div className='p-10 pt-20 w-4/6 ml-auto mr-40 '>
+
+        {loading && <p>Loading...</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {/* Display blog posts */}
+        <div className='mt-10'>
+          {blogPosts.map((post) => (
+            <div className='mt-10 relative' key={post._id}>
+              <div className='flex '>
+                <img className='w-10' src="./user.png" alt="" />
+                <p className='font-lg text-xl ml-5 pt-1'>{post.user.name}</p>
+              </div>
+              <div className='border-2 rounded-md mt-2' >
+                <h3 className='text-left pl-3 text-2xl font-rubik'>{post.title}</h3>
+                <img className='mt-2 m-auto' src={post.image} alt="image" />
+
+
+                <p className='text-xl text-left  p-3'>{post.content}</p>
+              </div>
+              <img
+                className='w-10 m-2 ml-4'
+                src="./chat.png"
+                alt=""
+                onClick={() => setShowComments({ ...showComments, [post._id]: !showComments[post._id] })}
+              />
+              {/* Display comments */}
+              {/* <img className='w-10 m-2 ml-4' src="./chat.png " alt="" /> */}
+              <div >
+                {showComments[post._id] && (
+                  <div className='compop absolute bottom-12 rounded-lg shadow-md h-[30rem] w-[100%] bg-white'>
+                    <ul>
+                      {post.comments.map((comment) => (
+                        <>
+                          <div className=' text-left m-3 flex'>
+                            <img className='h-10 mt-1' src="./user.png" alt="" />
+                            <div className='ml-4'>
+                              <h1 className='text-xl' key={comment._id}>{comment.user.name}</h1>
+                              <h1 key={comment._id}>{comment.text} </h1>
+                            </div>
+                          </div>
+
+                        </>
+
+                      ))}
+                    </ul>
+                    <div className='absolute flex bottom-5 left-[10%] w-[90%]'>
+                      <input
+                        className='w-[80%] border-2 rounded-md pl-4 h-10 '
+                        type="text"
+                        placeholder="Add a comment"
+                        value={comments[post._id] || ''}
+                        onChange={(e) => setComments({ ...comments, [post._id]: e.target.value })}
+                      />
+                      <img className='w-8 ml-2' onClick={() => handleCreateComment(post._id)} src="./send.png" alt="" />
+                    </div>
+
+                  </div>
+                )}
+
+              </div>
+            </div>
+          ))}
+        </div>
+        {/* Allow adding new blog posts */}
+
+
+      </div>
     </div>
   );
 };
