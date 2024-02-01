@@ -8,7 +8,7 @@ const storeModel = require("../models/store");
 const userModel = require("../models/user");
 const userItem = require("../models/useritem");
 const axios = require("axios");
-
+const auth_checker = require("../middlewares/auth")
 
 
 router.get("/api/all-users-except/:id",auth_checker, async (req, res, next) => {
@@ -125,6 +125,7 @@ router.get("/api/recipes",auth_checker,async(req,res) => {
         model: "UserItem", // Adjust the model name based on your actual model
       },
     });
+    console.log(user)
     return res.status(200).json({data : user.cart})
   } catch (error) {
     console.error("Error adding item to the cart:", error);
@@ -145,11 +146,14 @@ router.post("/api/recipes",auth_checker,async(req,res) => {
         match : {_id : {$in : convertedItemIds}}
       },
     });
+    console.log(user)
     const userItems = user.cart.items
     if (!userItems) {
       return res.status(404).json({ error: "User not found" });
     }
+    console.log(userItems)
     const itemNames = userItems.map((item) => item.name);
+    console.log(itemNames)
     const baseURL = "https://api.spoonacular.com/recipes/findByIngredients";
     const apiKey = "dd37c14e77834c22ba2cb8e1193e6396";
     function constructRequestURL(ingredients, number) {
@@ -203,4 +207,18 @@ router.post("/api/addallergies", auth_checker,async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+router.get("/api/recommendedproducts",auth_checker,async(req,res) => {
+  try {
+    const userId = req.userData._id;
+    const userAvailable = await userModel.findById(userId);
+    console.log(userAvailable)
+    if(!userAvailable){
+      return res.status(401).json({message : "User does not exist"});
+    }
+    const userAllergies = userAvailable ? userAvailable.allergies : [];
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({error : error});
+  }
+})
 module.exports = router;

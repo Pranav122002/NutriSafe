@@ -1,0 +1,6 @@
+name,floor,department,containsAllergens,allergens,price
+Lactase Supplements,1,Pharmacy,false,[],7.25
+Lactose-free milk,2,Dairy,false,[],4.99
+Soy milk,2,Dairy,false,[],3.75
+Almond milk,2,Dairy,false,[],5.50
+Coconut milk,2,Dairy,false,[],6.20
