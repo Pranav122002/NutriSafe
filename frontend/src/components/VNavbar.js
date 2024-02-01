@@ -85,6 +85,16 @@ export default function VNavbar() {
           </NavLink>
 
           <NavLink
+            to="/personal-chat"
+            className="w-11/12 ml-3 flex rounded hover:bg-gray-100 mt-1.5"
+          >
+            <img className="h-6 m-3" src="./allergy.png" alt="" />
+            <h1 className=" pt-3 pb-3 font-medium text-base tracking-tight">
+              Personal Chat
+            </h1>
+          </NavLink>
+
+          <NavLink
             to="/qrgen"
             className="w-11/12 ml-3 flex rounded hover:bg-gray-100 mt-1.5"
           >

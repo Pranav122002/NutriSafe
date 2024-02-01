@@ -39,8 +39,8 @@ function App() {
           <Route path="/user/:userid" element={<UserProfile />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/chat" element={<Chat />}></Route>
-          {/* <Route path="/personal-chat" element={<PersonalChat />}></Route>
-          <Route path="/group-chat" element={<GroupChat />}></Route> */}
+          <Route path="/personal-chat" element={<PersonalChat />}></Route>
+          <Route path="/group-chat" element={<GroupChat />}></Route> 
           <Route path="/blogposts" element={<BlogPost />}></Route>
           <Route path="/stores" element={<Stores />}></Route>
           <Route path="/download" element={<Download />}></Route>
