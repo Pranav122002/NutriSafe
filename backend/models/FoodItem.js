@@ -18,6 +18,11 @@ const FoodItem = mongoose.Schema({
         type : Boolean,
         required : true
     },
+    allergens : [
+        {
+            type : String,
+        }
+    ],
     price : {
         type : Number,
         required : true

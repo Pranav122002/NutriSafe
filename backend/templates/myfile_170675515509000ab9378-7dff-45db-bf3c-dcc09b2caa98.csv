@@ -1,0 +1,6 @@
+name,floor,department,containsAllergens,allergens,price
+Almond,4,Nuts,false,[],7.40
+Cashew,4,Nuts,false,[],6.10
+Pistachio,4,Nuts,false,[],8.75
+Hazelnut,4,Nuts,false,[],9.50
+Walnut,4,Nuts,false,[],5.60

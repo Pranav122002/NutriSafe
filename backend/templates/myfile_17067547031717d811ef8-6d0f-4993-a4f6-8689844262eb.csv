@@ -1,0 +1,6 @@
+name,floor,department,containsAllergens,allergens,price
+Rice flour,3,Bakery,false,[],2.80
+Corn flour,3,Bakery,false,[],1.90
+Potato flour,3,Bakery,false,[],3.50
+Tapioca flour,3,Bakery,false,[],4.25
+Almond flour,3,Bakery,true,[],5.80

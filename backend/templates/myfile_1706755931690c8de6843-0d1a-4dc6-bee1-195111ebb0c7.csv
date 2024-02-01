@@ -1,0 +1,6 @@
+name,floor,department,containsAllergens,allergens,price
+Salmon,5,Seafood,true,[],10.25
+Tuna,5,Seafood,true,[],9.80
+Cod,5,Seafood,true,[],8.15
+Tilapia,5,Seafood,true,[],7.30
+Sardines,5,Seafood,true,[],6.90
