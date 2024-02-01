@@ -1,0 +1,11 @@
+Name: Vini Mithaiwala, Location: Mumbai, FoodItems: fooditem : Burger foodPrice : (5.99) department :(Main) floor : (1), fooditem : Salad foodPrice : (7.49) department :(Healthy) floor : (2), fooditem : Pizza foodPrice : (10.99) department :(Main) floor : (1), fooditem : Soda foodPrice : (1.99) department :(Beverages) floor : (1)
+
+Name: Store 7, Location: Mumbai, FoodItems: fooditem : Lactase Supplements foodPrice : (7.25) department :(Pharmacy) floor : (1), fooditem : Lactose-free milk foodPrice : (4.99) department :(Dairy) floor : (2), fooditem : Soy milk foodPrice : (3.75) department :(Dairy) floor : (2), fooditem : Almond milk foodPrice : (5.5) department :(Dairy) floor : (2), fooditem : Coconut milk foodPrice : (6.2) department :(Dairy) floor : (2)
+
+Name: Big Basket, Location: Mumbai, FoodItems: fooditem : Rice flour foodPrice : (2.8) department :(Bakery) floor : (3), fooditem : Corn flour foodPrice : (1.9) department :(Bakery) floor : (3), fooditem : Potato flour foodPrice : (3.5) department :(Bakery) floor : (3), fooditem : Tapioca flour foodPrice : (4.25) department :(Bakery) floor : (3), fooditem : Almond flour foodPrice : (5.8) department :(Bakery) floor : (3)
+
+Name: Big Bazaar, Location: Bandra, FoodItems: fooditem : Almond foodPrice : (7.4) department :(Nuts) floor : (4), fooditem : Cashew foodPrice : (6.1) department :(Nuts) floor : (4), fooditem : Pistachio foodPrice : (8.75) department :(Nuts) floor : (4), fooditem : Hazelnut foodPrice : (9.5) department :(Nuts) floor : (4), fooditem : Walnut foodPrice : (5.6) department :(Nuts) floor : (4)
+
+Name: Reliance, Location: Dadar, FoodItems: fooditem : Salmon foodPrice : (10.25) department :(Seafood) floor : (5), fooditem : Tuna foodPrice : (9.8) department :(Seafood) floor : (5), fooditem : Cod foodPrice : (8.15) department :(Seafood) floor : (5), fooditem : Tilapia foodPrice : (7.3) department :(Seafood) floor : (5), fooditem : Sardines foodPrice : (6.9) department :(Seafood) floor : (5)
+
+Name: 24*7, Location: Bandra, FoodItems: 

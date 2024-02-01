@@ -1,0 +1,11 @@
+Name: Vini Mithaiwala, Location: Mumbai, FoodItems: Burger (5.99) (Main) (1), Salad (7.49) (Healthy) (2), Pizza (10.99) (Main) (1), Soda (1.99) (Beverages) (1)
+
+Name: Store 7, Location: Mumbai, FoodItems: Lactase Supplements (7.25) (Pharmacy) (1), Lactose-free milk (4.99) (Dairy) (2), Soy milk (3.75) (Dairy) (2), Almond milk (5.5) (Dairy) (2), Coconut milk (6.2) (Dairy) (2)
+
+Name: Big Basket, Location: Mumbai, FoodItems: Rice flour (2.8) (Bakery) (3), Corn flour (1.9) (Bakery) (3), Potato flour (3.5) (Bakery) (3), Tapioca flour (4.25) (Bakery) (3), Almond flour (5.8) (Bakery) (3)
+
+Name: Big Bazaar, Location: Bandra, FoodItems: Almond (7.4) (Nuts) (4), Cashew (6.1) (Nuts) (4), Pistachio (8.75) (Nuts) (4), Hazelnut (9.5) (Nuts) (4), Walnut (5.6) (Nuts) (4)
+
+Name: Reliance, Location: Dadar, FoodItems: Salmon (10.25) (Seafood) (5), Tuna (9.8) (Seafood) (5), Cod (8.15) (Seafood) (5), Tilapia (7.3) (Seafood) (5), Sardines (6.9) (Seafood) (5)
+
+Name: 24*7, Location: Bandra, FoodItems: 
