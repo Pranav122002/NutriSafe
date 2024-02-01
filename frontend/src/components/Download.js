@@ -29,14 +29,17 @@ const DownloadDatabaseButton = () => {
 
   return (
     <>
-      <div className="centeredDiv">
-        <button onClick={handleDownload} disabled={loading}>
-          {loading ? 'Downloading...' : 'Download Database'}
-        </button>
+      <div className="centeredDiv ">
+        <div className='p-10 bg-white shadow-md h-40 rounded-lg border-2'>
+          <h1 className='text-3xl'>Download Data</h1>
+          <button className='dsaasda w-[90%] mt-3 h-10 rounded-md shadow-md text-white ' onClick={handleDownload} disabled={loading}>
+            {loading ? 'Downloading...' : 'Download Offline'}
+          </button>
+        </div>
       </div>
     </>
   );
-  
+
 };
 
 export default DownloadDatabaseButton;

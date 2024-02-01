@@ -9,9 +9,10 @@ router.get("/api/download-store-DB", async (req, res) => {
     const fileName = "store_database.txt";
 
     const dataString = stores.map((store) => {
-      const foodItemsDetails = store.foodItems ? store.foodItems.map(foodItem => `${foodItem.name} (${foodItem.price}$)`).join(", ") : '';
+      const foodItemsDetails = store.foodItems ? store.foodItems.map(foodItem => `fooditem : ${foodItem.name} foodPrice : (${foodItem.price}) department :(${foodItem.location.department}) floor : (${foodItem.location.floor})`).join(", ") : '';
       return `Name: ${store.name}, Location: ${store.location}, FoodItems: ${foodItemsDetails}\n`;
     }).join("\n");
+    
 
     fs.writeFileSync(fileName, dataString);
 

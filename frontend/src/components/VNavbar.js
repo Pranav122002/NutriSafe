@@ -58,9 +58,9 @@ export default function VNavbar() {
             to="/download"
             className="w-11/12 ml-3 flex rounded hover:bg-gray-100 mt-1.5"
           >
-            <img className="h-6 m-3" src="./chat.png" alt="" />
+            <img className="h-6 m-3" src="./save.png" alt="" />
             <h1 className=" pt-3 pb-3 font-medium text-base tracking-tight">
-              Download Data
+              Save Data 
             </h1>
           </NavLink>
 
@@ -68,7 +68,7 @@ export default function VNavbar() {
             to="/qr"
             className="w-11/12 ml-3 flex rounded hover:bg-gray-100 mt-1.5"
           >
-            <img className="h-6 m-3" src="./chat.png" alt="" />
+            <img className="h-6 m-3" src="./QR.png" alt="" />
             <h1 className=" pt-3 pb-3 font-medium text-base tracking-tight">
               QR Scanner
             </h1>

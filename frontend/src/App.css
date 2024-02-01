@@ -5,9 +5,12 @@
 .App {
   text-align: center;
 }
+.colaowascq{
+  background-color: #48c1f1;
+}
 
 .active{
-  background-color: rgb(44, 207, 191);
+  background-color: #48c1f1;
   border-radius: 5px;
 }
 .active h1{
@@ -108,7 +111,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #48c1f1;
 }
 
 @keyframes App-logo-spin {

@@ -51,6 +51,9 @@ export default function Test(props) {
   const notifyB = (msg) => toast.success(msg);
   return (
     <>
+    <div className='w-4/6 ml-auto -mt-10 mr-40 '>
+
+   
       <QrReader
         onResult={(result, error) => {
           if (!!result) {
@@ -78,6 +81,7 @@ export default function Test(props) {
         style={{ width: "100%" }}
       />
       <p>{data}</p>
+      </div>
     </>
   );
 }

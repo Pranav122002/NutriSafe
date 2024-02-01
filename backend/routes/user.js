@@ -148,7 +148,11 @@ router.post("/api/recipes",auth_checker,async(req,res) => {
     }
     const itemNames = itemsData.map((item) => item.name);
     const baseURL = "https://api.spoonacular.com/recipes/findByIngredients";
+<<<<<<< HEAD
     const apiKey = "5683b8572dmsh070d0d1abaae772p18cba4jsn2f45990d2688";
+=======
+    const apiKey = "c9299c54549f4bfca9659d8c99c7afe8";
+>>>>>>> 818372f04d85ec03b52633fbd2268a7a91107058
     function constructRequestURL(ingredients, number) {
       let requestURL = `${baseURL}?ingredients=${ingredients.join(",")}&number=${number}&apiKey=${apiKey}`
       return requestURL;
@@ -157,6 +161,7 @@ router.post("/api/recipes",auth_checker,async(req,res) => {
     const number = 4; // Number of recipes to fetch
     const requestURL = constructRequestURL(ingredients, number)
     const response = await axios.get(requestURL)
+    console.log(response)
     const recipes = response.data.map(recipe => {
       return ( {
         name: recipe.title,
