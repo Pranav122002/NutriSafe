@@ -17,14 +17,17 @@ import GroupChat from "./components/GroupChat";
 import BlogPost from "./components/BlogPost";
 import Landing from "./components/Landing";
 import Download from "./components/Download";
+import Allergy from "./components/Allergy";
+import QR from "./components/QR";
+import QRgen from "./components/QRgen";
 import SelectedStore from "./components/SelectedStore";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Navbar />
         <VNavbar />
+        <Navbar />
         <Routes>
           <Route path="/" element={<Landing />}></Route>
 
@@ -41,7 +44,10 @@ function App() {
           <Route path="/stores" element={<Stores />}></Route>
           <Route path="/download" element={<Download />}></Route>
           <Route path="/store" element={<SelectedStore />}></Route>
-         
+          <Route path="/allergy" element={<Allergy />}></Route>
+          <Route path="/qr" element={<QR />}></Route>
+          <Route path="/qrgen" element={<QRgen />}></Route>
+
         </Routes>
         <ToastContainer />
       </div>

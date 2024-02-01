@@ -58,12 +58,12 @@ const Stores = () => {
     return (
         <>
             <div className="mt-20 w-5/6 ml-auto text-left">
-                <h1 className="font-Rubik font-md text-4xl">Nearby stores</h1>
-                <div className="nbstores flex  justify-evenly">
+            <h1 className="font-Rubik font-md ml-60 text-4xl">Nearby stores</h1>
+                <div className="nbstores flex  justify-center">
 
                     {stores.map((store) => (
                         <>
-                            <div className="w-[35%] min-h-32 rounded-md mt-5 p-3 border-3">
+                            <div className="w-[35%] ml-5 min-h-32 rounded-md mt-4 p-3 border-3">
                                 <ul>
                                     <li key={store._id}>
                                         <div className="flex justify-between">
