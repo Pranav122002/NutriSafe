@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const adminModel = require("../models/admin");
 const storeModel = require("../models/store");
 const STORE = mongoose.model("STORE");
+const   QRModel = mongoose.model("QR");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -192,9 +193,23 @@ router.get("/admin/:storeId", auth_checker, async (req, res) => {
 
 router.get("/api/get-stores", auth_checker, async (req, res) => {
   const stores = await STORE.find({}).populate("foodItems");
-    
-    // .populate("foodItems", "name location");
+
+  // .populate("foodItems", "name location");
   return res.status(200).json(stores);
+});
+
+router.post("/api/saveQR", async (req, res) => {
+  try {
+    const { data, url } = req.body;
+
+    const newQRCode = new QRModel({ data, url });
+    await newQRCode.save();
+
+    res.json({ success: true, url });
+  } catch (error) {
+    console.error("Error saving QR code:", error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
+  }
 });
 
 module.exports = router;

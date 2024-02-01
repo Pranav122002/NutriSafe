@@ -84,6 +84,16 @@ export default function VNavbar() {
             </h1>
           </NavLink>
 
+          <NavLink
+            to="/qrgen"
+            className="w-11/12 ml-3 flex rounded hover:bg-gray-100 mt-1.5"
+          >
+            <img className="h-6 m-3" src="./chat.png" alt="" />
+            <h1 className=" pt-3 pb-3 font-medium text-base tracking-tight">
+              Generate QR
+            </h1>
+          </NavLink>
+
           <div
             className="cursor-pointer w-11/12 ml-3 flex rounded hover:bg-gray-100 bottom-3 absolute "
             onClick={() => {

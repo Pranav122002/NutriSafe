@@ -20,6 +20,7 @@ require("./models/group_message");
 require("./models/personal_message");
 require("./models/admin")
 require("./models/blogpost")
+require("./models/qr")
 
 
 app.use(require("./routes/user"));
