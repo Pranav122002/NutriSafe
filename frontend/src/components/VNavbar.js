@@ -18,7 +18,7 @@ export default function VNavbar() {
             to="/stores"
             className="w-11/12 ml-3 flex hover:pl-2 hover:mr-2 rounded hover:bg-gray-100 mt-1.5 "
           >
-            <img className="h-6 m-3" src="./locality.png" alt="" />
+            <img className="h-6 m-3" src="./store.png" alt="" />
             <h1 className="text-base text-gray-700  pt-3 pb-3 tracking-tight font-medium ">
               Stores
             </h1>
@@ -38,7 +38,7 @@ export default function VNavbar() {
             to="/blogposts"
             className="w-11/12 ml-3 flex hover:bg-gray-100 rounded mt-1.5"
           >
-            <img className="h-6 m-3" src="./restaurant.png" alt="" />
+            <img className="h-6 m-3" src="./blog.png" alt="" />
             <h1 className="pt-3 pb-3  font-medium text-base tracking-tight">
               Blogs
             </h1>
@@ -48,7 +48,7 @@ export default function VNavbar() {
             to="/recipe"
             className="w-11/12 ml-3 flex rounded hover:bg-gray-100 mt-1.5"
           >
-            <img className="h-6 m-3" src="./chat2.png" alt="" />
+            <img className="h-6 m-3" src="./recipe.png" alt="" />
             <h1 className=" pt-3 pb-3 font-medium text-base tracking-tight">
               Recipe
             </h1>
@@ -78,9 +78,9 @@ export default function VNavbar() {
             to="/allergy"
             className="w-11/12 ml-3 flex rounded hover:bg-gray-100 mt-1.5"
           >
-            <img className="h-6 m-3" src="./chat.png" alt="" />
+            <img className="h-6 m-3" src="./allergy.png" alt="" />
             <h1 className=" pt-3 pb-3 font-medium text-base tracking-tight">
-              Update Allergies
+              Allergies
             </h1>
           </NavLink>
 

@@ -66,14 +66,16 @@ const UserProfile = () => {
 
   return (
     <div className="mt-40 userProfileContainer">
-      <h2>User Profile</h2>
-      <div>
-        <h3>Allergies:</h3>
+   
+      <div className="text-left">
+        <h3 className="text-4xl">Allergies:</h3>
         <ul>
           {allergies.map((allergy, index) => (
             <li key={index}>
+              <div className="flex justify-between">
               {allergy}
               <button onClick={() => handleDeleteAllergy(index)}>Delete</button>
+              </div>
             </li>
           ))}
         </ul>
