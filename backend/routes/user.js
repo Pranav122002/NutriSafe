@@ -148,7 +148,7 @@ router.post("/api/recipes",auth_checker,async(req,res) => {
     }
     const itemNames = itemsData.map((item) => item.name);
     const baseURL = "https://api.spoonacular.com/recipes/findByIngredients";
-    const apiKey = "dd37c14e77834c22ba2cb8e1193e6396";
+    const apiKey = "5683b8572dmsh070d0d1abaae772p18cba4jsn2f45990d2688";
     function constructRequestURL(ingredients, number) {
       let requestURL = `${baseURL}?ingredients=${ingredients.join(",")}&number=${number}&apiKey=${apiKey}`
       return requestURL;

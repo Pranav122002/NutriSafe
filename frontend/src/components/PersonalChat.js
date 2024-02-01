@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import { useNavigate } from "react-router-dom";
+
 import "../css/Chat.css";
+const BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "http://localhost:5000/api"
 
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const socket = io(`${BASE_URL}`);
 
 const PersonalChat = () => {
@@ -15,29 +14,25 @@ const PersonalChat = () => {
   const [inputValue, setInputValue] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [users, setUsers] = useState([]);
-  const navigate = useNavigate();
+  const [chats, viewChats] = useState(false);
 
-  // require login
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
-
-    if (!token) {
-      navigate("/signin");
-    } else {
-      fetch(
-        `${API_BASE_URL}/user/${JSON.parse(localStorage.getItem("user"))._id}`,
-        {
-          headers: {
+    fetch(
+      `${API_BASE_URL}/user/${JSON.parse(localStorage.getItem("user"))._id}`,
+      {
+        headers: {
             Authorization: "Bearer " + localStorage.getItem("jwt"),
+            'Content-Type': 'application/json',
           },
-        }
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          setUserId(result.user._id);
-          setUserName(result.user.name);
-        });
-    }
+      }
+    )
+      .then((res) => res.json())
+      .then((result) => {
+        setUserId(result.user._id);
+        setUserName(result.user.name);
+        console.log("res = ",result);
+        
+      });
   }, []);
 
   useEffect(() => {
@@ -67,22 +62,23 @@ const PersonalChat = () => {
 
   useEffect(() => {
     if (userid) {
+      // socket = io(`${API_BASE_URL}`);
       socket.emit("add-user", userid);
     }
   }, [userid]);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
-
+  
     fetch(
       `${API_BASE_URL}/all-users-except/${
         JSON.parse(localStorage.getItem("user"))._id
       }`,
       {
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-          "Content-Type": "application/json",
-        },
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+            'Content-Type': 'application/json',
+          },
       }
     )
       .then((response) => response.json())
@@ -93,6 +89,7 @@ const PersonalChat = () => {
         console.error("Error fetching personal users:", error);
       });
   }, []);
+  
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -118,7 +115,6 @@ const PersonalChat = () => {
       fetch(`${API_BASE_URL}/save-personal-message`, {
         method: "POST",
         headers: {
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -140,86 +136,137 @@ const PersonalChat = () => {
   };
 
   return (
-    <>
+    <div className="perschat">
       <div>
-        <div>
-          <h2>{username}</h2>
-
-          <div>
-            <div>Click on username to chat with him</div>
-            {users?.map((user) => (
-              <>
-                <p
-                  key={user._id}
-                  onClick={() => {
-                    handleUserSelection(user);
-                  }}
-                >
-                  {user.name}
-                </p>
-              </>
-            ))}
-            <hr />
-          </div>
-        </div>
-
-        <div>
-          <div>{selectedUser && <p>{selectedUser.name}</p>}</div>
-
-          <div>
-            {messages.map((message, index) => (
-              <>
-                {message.sender_id === userid ? (
+        <div className="bodyy">
+          <div className="chatcont">
+            <div className="cinfo">
+              <div className="myinfo">
+                <img id="profpicc" src="./profile-pic.png" alt="" srcset="" />
+                <h2>{username}</h2>
+              </div>
+              <div className="userss">
+                {users.map((user) => (
                   <>
-                    <div>
-                      <p key={index}>
-                        <div>{message.message}</div>
-                        <span>
-                          {new Date(message.createdAt).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: true,
-                          })}
-                        </span>
-                      </p>
-                    </div>
+                    <p
+                      key={user._id}
+                      onClick={() => {
+                        handleUserSelection(user);
+                        viewChats("active");
+                      }}
+                    >
+                      {user.name}
+                    </p>
+                    <hr />
                   </>
-                ) : (
-                  <>
-                    <div>
-                      <p key={index}>
-                        <p>{message.message}</p>
+                ))}
+              </div>
+            </div>
+            <hr id="midhr" />
 
-                        <p>
-                          {new Date(message.createdAt).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            hour12: true,
-                          })}
-                        </p>
-                      </p>
-                    </div>
-                  </>
+            <div className={`selchat ${chats && "active"}`}>
+              <div className="seluser">
+                {selectedUser && (
+                  <div className="userssasd">
+                    {" "}
+                    <img
+                      onClick={() => {
+                        viewChats(false);
+                      }}
+                      id="sdbackpn"
+                      src="./back.png"
+                      alt=""
+                    />
+                    <img
+                      id="profpicc"
+                      src="./profile-pic.png"
+                      alt=""
+                      srcset=""
+                    />
+                    <p>{selectedUser.name}</p>
+                  </div>
                 )}
-              </>
-            ))}
-          </div>
+              </div>
+              <div className="messages">
+                {messages.map((message, index) => (
+                  <>
+                    {message.sender_id === userid ? (
+                      <>
+                        <div className="sender-mess">
+                          <p className="flexdisp" key={index}>
+                            <p>{message.message}</p>
+                            <div className="datemesss">
+                              {new Date(message.createdAt).toLocaleTimeString(
+                                [],
+                                {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                }
+                              )}
+                            </div>
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="received-msg">
+                          <p className="flexdisp" key={index}>
+                            <p>{message.message}</p>
 
-          <div>
-            <input
-              placeholder="Type your message here.."
-              type="text"
-              value={inputValue}
-              onChange={handleInputChange}
-            />
-
-            <button onClick={sendPersonalMessage} disabled={!selectedUser}>
-              Send
-            </button>
+                            <div className="datemess">
+                              {new Date(message.createdAt).toLocaleTimeString(
+                                [],
+                                {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                  hour12: true,
+                                }
+                              )}
+                            </div>
+                          </p>
+                        </div>
+                      </>
+                    )}
+                  </>
+                ))}
+              </div>
+              <div className="submitmenu">
+                <input
+                  placeholder="Type your message here.."
+                  type="text"
+                  value={inputValue}
+                  onChange={handleInputChange}
+                />
+                {inputValue === "" ? (
+                  <>                  
+                  <button id="sendbutton">
+                  <img
+                  
+                    style={{opacity:"0.5"}}      
+                    src="./send.png"
+                    id="sendicon"
+                    alt="send"
+                  />
+                </button></>
+                ) : (
+                  <button id="sendbutton">
+                    <img
+                    
+                      onClick={sendPersonalMessage}
+                      disabled={!selectedUser}
+                      src="./send.png"
+                      id="sendicon"
+                      alt="send"
+                    />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
