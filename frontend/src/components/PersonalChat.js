@@ -1,215 +1,226 @@
-// import React, { useEffect, useState } from "react";
-// import io from "socket.io-client";
-// import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
+import { useNavigate } from "react-router-dom";
+import "../css/Chat.css";
 
-// const BASE_URL = process.env.REACT_APP_BASE_URL;
-// const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
-// const socket = io(`${BASE_URL}`);
 
-// const PersonalChat = () => {
-//   const [userid, setUserId] = useState("");
-//   const [username, setUserName] = useState("");
-//   const [messages, setMessages] = useState([]);
-//   const [inputValue, setInputValue] = useState("");
-//   const [selectedUser, setSelectedUser] = useState(null);
-//   const [users, setUsers] = useState([]);
-//   const navigate = useNavigate();
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const socket = io(`${BASE_URL}`);
 
-//   // require login
-//   useEffect(() => {
-//     const token = localStorage.getItem("jwt");
+const PersonalChat = () => {
+  const [userid, setUserId] = useState("");
+  const [username, setUserName] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
-//     if (!token) {
-//       navigate("/signin");
-//     } else {
-//       fetch(
-//         `${API_BASE_URL}/user/${JSON.parse(localStorage.getItem("user"))._id}`,
-//         {
-//           headers: {
-//             Authorization: "Bearer " + localStorage.getItem("jwt"),
-//           },
-//         }
-//       )
-//         .then((res) => res.json())
-//         .then((result) => {
-//           setUserId(result.user._id);
-//           setUserName(result.user.name);
-//         });
-//     }
-//   }, []);
+  // require login
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
 
-//   useEffect(() => {
-//     if (selectedUser) {
-//       fetch(
-//         `${API_BASE_URL}/all-personal-messages/${
-//           JSON.parse(localStorage.getItem("user"))._id
-//         }/${selectedUser._id}`
-//       )
-//         .then((response) => response.json())
-//         .then((data) => {
-//           setMessages(data);
-//         })
-//         .catch((error) => {
-//           console.error("Error fetching personal messages:", error);
-//         });
+    if (!token) {
+      navigate("/signin");
+    } else {
+      fetch(
+        `${API_BASE_URL}/user/${JSON.parse(localStorage.getItem("user"))._id}`,
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          setUserId(result.user._id);
+          setUserName(result.user.name);
+        });
+    }
+  }, []);
 
-//       socket.on("personal-message", (message) => {
-//         setMessages((prevMessages) => [...prevMessages, message]);
-//       });
-//     }
+  useEffect(() => {
+    if (selectedUser) {
+      fetch(
+        `${API_BASE_URL}/all-personal-messages/${
+          JSON.parse(localStorage.getItem("user"))._id
+        }/${selectedUser._id}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setMessages(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching personal messages:", error);
+        });
 
-//     return () => {
-//       socket.off("personal-message");
-//     };
-//   }, [selectedUser]);
+      socket.on("personal-message", (message) => {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
+    }
 
-//   useEffect(() => {
-//     if (userid) {
-//       socket.emit("add-user", userid);
-//     }
-//   }, [userid]);
+    return () => {
+      socket.off("personal-message");
+    };
+  }, [selectedUser]);
 
-//   useEffect(() => {
-//     fetch(
-//       `${API_BASE_URL}/all-users-except/${
-//         JSON.parse(localStorage.getItem("user"))._id
-//       }`
-//     )
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setUsers(data);
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching personal users:", error);
-//       });
-//   }, []);
+  useEffect(() => {
+    if (userid) {
+      socket.emit("add-user", userid);
+    }
+  }, [userid]);
 
-//   const handleInputChange = (event) => {
-//     setInputValue(event.target.value);
-//   };
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
 
-//   const handleUserSelection = (user) => {
-//     setSelectedUser(user);
-//   };
+    fetch(
+      `${API_BASE_URL}/all-users-except/${
+        JSON.parse(localStorage.getItem("user"))._id
+      }`,
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching personal users:", error);
+      });
+  }, []);
 
-//   const sendPersonalMessage = () => {
-//     if (selectedUser) {
-//       const senderId = JSON.parse(localStorage.getItem("user"))._id;
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
 
-//       socket.emit("personal-message", {
-//         message: inputValue,
-//         sender_name: username,
-//         receiver_name: selectedUser.name,
-//         sender_id: senderId,
-//         receiver_id: selectedUser._id,
-//         createdAt: new Date().toISOString(),
-//       });
+  const handleUserSelection = (user) => {
+    setSelectedUser(user);
+  };
 
-//       fetch(`${API_BASE_URL}/save-personal-message`, {
-//         method: "POST",
-//         headers: {
-//           "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//           message: inputValue,
-//           sender_name: username,
-//           receiver_name: selectedUser.name,
-//           sender_id: senderId,
-//           receiver_id: selectedUser._id,
-//         }),
-//       })
-//         .then((response) => response.json())
-//         .then((data) => {})
-//         .catch((error) => {
-//           console.error("Error saving personal message:", error);
-//         });
+  const sendPersonalMessage = () => {
+    if (selectedUser) {
+      const senderId = JSON.parse(localStorage.getItem("user"))._id;
 
-//       setInputValue("");
-//     }
-//   };
+      socket.emit("personal-message", {
+        message: inputValue,
+        sender_name: username,
+        receiver_name: selectedUser.name,
+        sender_id: senderId,
+        receiver_id: selectedUser._id,
+        createdAt: new Date().toISOString(),
+      });
 
-//   return (
-//     <>
-//       <div>
-//         <div>
-//           <h2>{username}</h2>
+      fetch(`${API_BASE_URL}/save-personal-message`, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: inputValue,
+          sender_name: username,
+          receiver_name: selectedUser.name,
+          sender_id: senderId,
+          receiver_id: selectedUser._id,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {})
+        .catch((error) => {
+          console.error("Error saving personal message:", error);
+        });
 
-//           <div>
-//             <div>Click on username to chat with him</div>
-//             {users.map((user) => (
-//               <>
-//                 <p
-//                   key={user._id}
-//                   onClick={() => {
-//                     handleUserSelection(user);
-//                   }}
-//                 >
-//                   {user.name}
-//                 </p>
-//               </>
-//             ))}
-//             <hr />
-//           </div>
-//         </div>
+      setInputValue("");
+    }
+  };
 
-//         <div>
-//           <div>{selectedUser && <p>{selectedUser.name}</p>}</div>
+  return (
+    <>
+      <div>
+        <div>
+          <h2>{username}</h2>
 
-//           <div>
-//             {messages.map((message, index) => (
-//               <>
-//                 {message.sender_id === userid ? (
-//                   <>
-//                     <div>
-//                       <p key={index}>
-//                         <div>{message.message}</div>
-//                         <span>
-//                           {new Date(message.createdAt).toLocaleTimeString([], {
-//                             hour: "2-digit",
-//                             minute: "2-digit",
-//                             hour12: true,
-//                           })}
-//                         </span>
-//                       </p>
-//                     </div>
-//                   </>
-//                 ) : (
-//                   <>
-//                     <div>
-//                       <p key={index}>
-//                         <p>{message.message}</p>
+          <div>
+            <div>Click on username to chat with him</div>
+            {users?.map((user) => (
+              <>
+                <p
+                  key={user._id}
+                  onClick={() => {
+                    handleUserSelection(user);
+                  }}
+                >
+                  {user.name}
+                </p>
+              </>
+            ))}
+            <hr />
+          </div>
+        </div>
 
-//                         <p>
-//                           {new Date(message.createdAt).toLocaleTimeString([], {
-//                             hour: "2-digit",
-//                             minute: "2-digit",
-//                             hour12: true,
-//                           })}
-//                         </p>
-//                       </p>
-//                     </div>
-//                   </>
-//                 )}
-//               </>
-//             ))}
-//           </div>
+        <div>
+          <div>{selectedUser && <p>{selectedUser.name}</p>}</div>
 
-//           <div>
-//             <input
-//               placeholder="Type your message here.."
-//               type="text"
-//               value={inputValue}
-//               onChange={handleInputChange}
-//             />
+          <div>
+            {messages.map((message, index) => (
+              <>
+                {message.sender_id === userid ? (
+                  <>
+                    <div>
+                      <p key={index}>
+                        <div>{message.message}</div>
+                        <span>
+                          {new Date(message.createdAt).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true,
+                          })}
+                        </span>
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <p key={index}>
+                        <p>{message.message}</p>
 
-//             <button onClick={sendPersonalMessage} disabled={!selectedUser}>
-//               Send
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
+                        <p>
+                          {new Date(message.createdAt).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            hour12: true,
+                          })}
+                        </p>
+                      </p>
+                    </div>
+                  </>
+                )}
+              </>
+            ))}
+          </div>
 
-// export default PersonalChat;
+          <div>
+            <input
+              placeholder="Type your message here.."
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+            />
+
+            <button onClick={sendPersonalMessage} disabled={!selectedUser}>
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default PersonalChat;
