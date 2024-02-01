@@ -18,7 +18,8 @@ import BlogPost from "./components/BlogPost";
 import Landing from "./components/Landing";
 import Download from "./components/Download";
 import Allergy from "./components/Allergy";
-import QR from "./components/QR";
+import QR from "./components/QR"; 
+import Recipe from "./components/Recipe"; 
 import QRgen from "./components/QRgen";
 import SelectedStore from "./components/SelectedStore";
 
@@ -47,6 +48,7 @@ function App() {
           <Route path="/allergy" element={<Allergy />}></Route>
           <Route path="/qr" element={<QR />}></Route>
           <Route path="/qrgen" element={<QRgen />}></Route>
+          <Route path="/recipe" element={<Recipe />}></Route>
 
         </Routes>
         <ToastContainer />

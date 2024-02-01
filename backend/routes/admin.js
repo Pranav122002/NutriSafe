@@ -119,7 +119,7 @@ router.get("/admin/profile", auth_checker, async (req, res) => {
     const admin = await adminModel
       .findById(adminId)
       .populate("storesOwned", "name location");
-
+    console.log(admin)
     if (admin) {
       return res.status(200).json({ data: admin });
     } else {
@@ -158,7 +158,7 @@ router.post(
           .on("end", () => resolve(items))
           .on("error", (error) => reject(error));
       });
-
+      console.log(foodItems)
       // Save all FoodItems to the database
       const savedFoodItems = await foodItem.insertMany(foodItems);
       const existingStore = await storeModel.findById(storeId);
