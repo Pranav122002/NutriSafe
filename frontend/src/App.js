@@ -27,8 +27,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <VNavbar />
-        <Navbar />
+        {/* <VNavbar />
+        <Navbar /> */}
         <Routes>
           <Route path="/" element={<Landing />}></Route>
 

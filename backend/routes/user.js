@@ -154,7 +154,7 @@ router.post("/api/recipes",auth_checker,async(req,res) => {
       return requestURL;
     }
     const ingredients = itemNames;
-    const number = 10; // Number of recipes to fetch
+    const number = 4; // Number of recipes to fetch
     const requestURL = constructRequestURL(ingredients, number)
     const response = await axios.get(requestURL)
     const recipes = response.data.map(recipe => {
