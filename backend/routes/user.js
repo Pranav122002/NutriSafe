@@ -9,7 +9,8 @@ const storeModel = require("../models/store");
 const userModel = require("../models/user");
 const userItem = require("../models/useritem");
 const axios = require("axios");
-
+const foodItems = require("../models/FoodItem");
+const foodItem = require("../models/FoodItem");
 
 
 router.get("/api/all-users-except/:id",auth_checker, async (req, res, next) => {
@@ -137,20 +138,14 @@ router.post("/api/recipes",auth_checker,async(req,res) => {
   const {userItemIds} = req.body
   try {
     const convertedItemIds = userItemIds.map(id => new mongoose.Types.ObjectId(id));
-    const user = await userModel.findById(userId).populate({
-      path: "cart",
-      populate: {
-        path: "items",
-        model: "UserItem",
-        select : "name",
-        match : {_id : {$in : convertedItemIds}}
-      },
-    });
-    const userItems = user.cart.items
-    if (!userItems) {
-      return res.status(404).json({ error: "User not found" });
+    const itemsData = [];
+    for (const itemId of userItemIds) {
+      const item = await foodItem.findById(itemId);
+      if (item) {
+        itemsData.push(item);
+      }
     }
-    const itemNames = userItems.map((item) => item.name);
+    const itemNames = itemsData.map((item) => item.name);
     const baseURL = "https://api.spoonacular.com/recipes/findByIngredients";
     const apiKey = "dd37c14e77834c22ba2cb8e1193e6396";
     function constructRequestURL(ingredients, number) {

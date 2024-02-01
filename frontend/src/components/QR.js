@@ -18,7 +18,7 @@
 //       setScanResult(result);
 //     }
 
-//     function error(err) { 
+//     function error(err) {
 //       console.warn(err);
 //     }
 //   }, []);
@@ -39,28 +39,45 @@
 //   );
 // }
 
-
-import React, { useState } from 'react';
-import { QrReader } from 'react-qr-reader';
+import React, { useState } from "react";
+import { QrReader } from "react-qr-reader";
+import { json } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Test(props) {
-  const [data, setData] = useState('No result');
-
+  const [data, setData] = useState("No result");
+  // Toast functions
+  const notifyA = (msg) => toast.error(msg);
+  const notifyB = (msg) => toast.success(msg);
   return (
     <>
       <QrReader
         onResult={(result, error) => {
           if (!!result) {
             setData(result?.text);
+            const res = JSON.parse(result);
+            if (res.containsAllergens == true) {
+              console.log("True");
+
+              notifyA(
+                "Consume with care. It may contain your specified allergens"
+              );
+            } else {
+              console.log("false");
+              notifyB("Does'nt contain your specified allergens");
+            }
+            // console.log("res= =", res.containsAllergens);
+
+            notifyA(res?.text.containsAllergens);
           }
 
           if (!!error) {
             console.info(error);
           }
         }}
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
       />
       <p>{data}</p>
     </>
   );
-};
+}
