@@ -84,13 +84,18 @@
   height: 40vmin;
   pointer-events: none;
 }
+.nbstores{
+  flex-wrap: wrap;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.bgbut{
+  background-color: #48c1f1;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

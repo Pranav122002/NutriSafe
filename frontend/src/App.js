@@ -17,6 +17,7 @@ import GroupChat from "./components/GroupChat";
 import BlogPost from "./components/BlogPost";
 import Landing from "./components/Landing";
 import Download from "./components/Download";
+import SelectedStore from "./components/SelectedStore";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
 
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
+          <Route path="/admin/signup" element={<SignUp />}></Route>
+          <Route path="/admin/signin" element={<SignIn />}></Route>
           <Route path="/user/:userid" element={<UserProfile />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/chat" element={<Chat />}></Route>
@@ -37,6 +40,8 @@ function App() {
           <Route path="/blogposts" element={<BlogPost />}></Route>
           <Route path="/stores" element={<Stores />}></Route>
           <Route path="/download" element={<Download />}></Route>
+          <Route path="/store" element={<SelectedStore />}></Route>
+         
         </Routes>
         <ToastContainer />
       </div>
